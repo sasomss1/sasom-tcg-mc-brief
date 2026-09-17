@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MC Brief — Oripa Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#1B1B1B;--accent:#C9FF00;--accent-text:#1B1B1B;--bg:#FAFAFA;--card:#FFFFFF;--line:#E7E7E7;--line-soft:#F0F0F0;--sub:#8A8A8A;--text:#141414}
+:root[data-theme="dark"]{--dark:#EDEDED;--bg:#111111;--card:#1A1A1A;--line:#2C2C2C;--line-soft:#232323;--sub:#8F8F8F;--text:#EDEDED;--accent-text:#1B1B1B}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--dark:#EDEDED;--bg:#111111;--card:#1A1A1A;--line:#2C2C2C;--line-soft:#232323;--sub:#8F8F8F;--text:#EDEDED}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans Thai',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px 40px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 0 14px;flex-wrap:wrap}
+.brand{font-weight:600;font-size:14px;letter-spacing:.02em;color:var(--sub)}
+.tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.switch{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--sub);font-weight:500;user-select:none}
+.knob-track{width:36px;height:20px;border-radius:999px;background:var(--line);position:relative;transition:background .25s cubic-bezier(.4,0,.2,1)}
+.knob{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--card);transition:transform .25s cubic-bezier(.4,0,.2,1)}
+:root[data-theme="dark"] .knob-track{background:var(--accent)}
+:root[data-theme="dark"] .knob{transform:translateX(16px)}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--text);font-family:inherit;font-size:13px;font-weight:500;padding:8px 16px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--line-soft)}
+.btn[disabled]{opacity:.4;cursor:default}
+.btn.primary{background:var(--dark);color:var(--bg);border-color:var(--dark)}
+:root[data-theme="dark"] .btn.primary{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
+.field{border:1px solid var(--line);background:var(--card);color:var(--text);font-family:inherit;font-size:13px;padding:8px 14px;border-radius:999px;min-width:190px}
+.field::placeholder{color:var(--sub)}
+.seg{display:flex;padding:3px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
+.seg button{border:0;background:transparent;color:var(--sub);font-family:inherit;font-size:12px;font-weight:500;padding:5px 13px;border-radius:999px;cursor:pointer}
+.seg button.active{background:var(--accent);color:var(--accent-text);font-weight:600}
+.meta{font-size:11px;color:var(--sub);padding-bottom:12px}
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+.pf{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:6px 13px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px}
+.pf:hover{background:var(--line-soft)}
+.pf.on{background:var(--accent);color:var(--accent-text);font-weight:600;border-color:var(--accent)}
+.dot{width:6px;height:6px;border-radius:50%;background:#2E7D32}
+.pf .dot.ON{background:#6B5900}
+.pf.on .dot{background:var(--accent-text)}
+.stage{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;min-height:430px;display:flex;flex-direction:column;justify-content:center}
+.slide{display:grid;grid-template-columns:260px 1fr;gap:30px;align-items:start}
+@media(max-width:760px){.slide{grid-template-columns:1fr;gap:18px}.stage{padding:20px;min-height:0}}
+.shot{width:100%;aspect-ratio:3/4;border-radius:14px;background:var(--line-soft);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.shot img{max-width:100%;max-height:100%;object-fit:contain;cursor:zoom-in}
+.shot span{color:var(--sub);font-size:12px}
+.kicker{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.kicker:before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.headrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.slotno{font-size:44px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.grade{background:var(--dark);color:#F2F2F2;font-size:15px;font-weight:700;letter-spacing:.02em;padding:7px 15px;border-radius:999px;white-space:nowrap}
+:root[data-theme="dark"] .grade{background:var(--accent);color:var(--accent-text)}
+.grade.sealed{background:var(--accent);color:var(--accent-text)}
+.cname{font-size:16px;font-weight:600;margin:12px 0 5px;line-height:1.4}
+.nick{display:inline-block;font-size:14px;font-weight:600;color:var(--accent-text);background:var(--accent);padding:3px 11px;border-radius:999px;margin-top:8px}
+:root[data-theme="dark"] .nick{background:var(--accent);color:var(--accent-text)}
+.tags{font-size:12px;color:var(--sub)}
+.plabel{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sub);margin-top:14px}
+.price{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
+.price small{font-size:12px;font-weight:500;color:var(--sub);margin-left:5px}
+.talk{font-size:17px;line-height:1.75;margin-top:18px;padding-left:14px;border-left:3px solid var(--accent)}
+.chase{font-size:16px;line-height:1.7;margin-top:16px;padding:14px 16px;background:var(--line-soft);border-radius:12px}
+.chase b{font-weight:600;letter-spacing:.09em;font-size:10px;color:var(--sub)}
+.cover .badge{font-size:10px;font-weight:600;letter-spacing:.06em;padding:4px 10px;border-radius:999px;display:inline-block;margin-bottom:14px}
+.badge.NEW{background:#EAF7EA;color:#2E7D32}.badge.ON{background:#FFF6DC;color:#6B5900}
+.cover .big{font-size:52px;font-weight:700;letter-spacing:-.025em;line-height:1.05}
+.cover .facts{display:flex;flex-wrap:wrap;gap:10px 36px;font-size:15px;color:var(--sub);margin-top:24px}
+.cover .facts b{color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
+.cover .top{font-size:16px;line-height:1.7;margin-top:22px;padding-left:14px;border-left:3px solid var(--accent)}
+.script{white-space:pre-wrap;font-size:17px;line-height:1.8}
+.empty{text-align:center;color:var(--sub);font-size:14px}
+.editbar{display:flex;gap:8px;align-items:center;margin-top:16px;flex-wrap:wrap}
+.tiny{border:1px dashed var(--line);background:transparent;color:var(--sub);font-family:inherit;font-size:12px;font-weight:500;padding:6px 13px;border-radius:999px;cursor:pointer}
+.tiny:hover{border-style:solid;color:var(--text)}
+.edlabel{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sub);margin:16px 0 6px}
+textarea.ed{width:100%;min-height:120px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit;font-size:16px;line-height:1.7;padding:13px 15px;border-radius:12px;resize:vertical}
+textarea.ed:focus{outline:2px solid var(--accent);outline-offset:-1px}
+input.ed{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--text);font-family:inherit;font-size:15px;padding:10px 15px;border-radius:999px}
+.dirty{font-size:11px;color:#C0392B;font-weight:600}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:16px}
+.counter{font-size:12px;color:var(--sub);font-variant-numeric:tabular-nums;white-space:nowrap}
+.track{display:flex;gap:3px;flex:1;margin:0 4px}
+.tick{flex:1;height:3px;border-radius:2px;background:var(--line);cursor:pointer}
+.tick.on{background:var(--accent)}
+.tick.done{background:var(--sub)}
+.hint{font-size:11px;color:var(--sub);text-align:center;margin-top:12px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--dark);color:var(--bg);font-size:13px;padding:11px 20px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:60}
+.toast.show{opacity:1}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:50;cursor:zoom-out;padding:24px}
+#lb img{max-width:min(560px,90vw);max-height:88vh;border-radius:12px;background:#fff}
+</style></head><body>
+<div class="wrap">
+<div class="topbar">
+  <div class="brand">SASOM</div>
+  <div class="tools">
+    <input class="field" id="q" type="search" placeholder="Search board / card / nickname / SKU" autocomplete="off">
+    <div class="seg" id="statusSeg">
+      <button data-s="ALL" class="active">All</button>
+      <button data-s="NEW">NEW</button>
+      <button data-s="ON">ON</button>
+    </div>
+    <button class="btn primary" id="sync">Sync from Sheet</button>
+    <div class="switch" id="themeToggle">Dark<div class="knob-track"><div class="knob"></div></div></div>
+  </div>
+</div>
+<div class="meta" id="meta"></div>
+<div class="pills" id="pills"></div>
+<div class="stage" id="stage"></div>
+<div class="nav">
+  <button class="btn" id="prev">Prev</button>
+  <div class="track" id="track"></div>
+  <span class="counter" id="counter"></span>
+  <button class="btn" id="next">Next</button>
+</div>
+<div class="hint">Use arrow keys or swipe to navigate</div>
+</div>
+<div class="toast" id="toast"></div>
+<div id="lb"><img id="lbi" alt=""></div>
+
+<script>
+// ── ตั้งค่า ───────────────────────────────────────────────────────────────
+// วาง URL ของ Apps Script Web App ที่ deploy จาก Google Sheet ตรงนี้
+// ดูวิธี deploy ใน README.md แล้วเอา URL ที่ลงท้ายด้วย /exec มาใส่
+var SYNC_URL = "";
+
+var ALL = [], NOTES = {}, BASE_NOTES = {}, LOCAL = {}, view = [], cur = 0, idx = 0,
+    slides = [], statusFilter = "ALL", q = "", editing = null;
+var LS_KEY = 'mcbrief.notes.v1';
+var pills=document.getElementById('pills'), stage=document.getElementById('stage'),
+    track=document.getElementById('track'), counter=document.getElementById('counter'),
+    metaEl=document.getElementById('meta'), toastEl=document.getElementById('toast');
+
+var SCRIPTS = [
+ ["INTRO","สวัสดีครับ เราอยู่กันในไลฟ์ TCG Oripa Series ไลฟ์สำหรับคนรักการ์ด วันนี้อยู่กับเรา 2 ชั่วโมงเต็ม 20:00–22:00 น.\n\nช้อปกับ SASOM รักจริง ไม่หลอก\nไม่รีซีล ไม่ยัด Pack ไม่บิด ไม่โกง\nช้อปแบบไหน ได้แบบนั้น ถ้าไม่ได้ตามที่บอก คืนเงิน 2 เท่าทั้ง Live"],
+ ["HOW TO ORDER","เลือกตัวเลขที่ต้องการ เลือกได้หลายเลขพร้อมกันแล้วค่อยกดสั่งซื้อ\n\nซองและการ์ดด้านในถูกจัดและซีลลายน้ำมาจากที่อื่นก่อนแล้ว SASOM มีหน้าที่แค่แปะตัวเลขหลังซอง จึงไม่มีใครรู้หรือเช็คได้ว่าซองไหนเป็นเลขอะไรจนกว่าจะแกะ"],
+ ["Q&A","เหลือ Hit อะไรบ้าง / มีกี่ใบ → ดูได้ในหน้า board detail\n\nเหลือกี่จุ่ม → เช็คในขั้นตอนสั่งซื้อว่าเลขไหน sold out แล้ว หน้านี้เป็น real-time บางครั้งเลขที่ sold out กลับมาได้ เพราะลูกค้าจองแล้วไม่จ่าย ระบบจองไว้ 3 นาที"],
+ ["AVOID / FALLBACK","คำต้องเลี่ยง: เกลือ, เหนียว → ใช้เชิงให้กำลังใจแทน เช่น \"Hit ยังอยู่นะ\"\n\nจอดำ / ภาพไม่ขึ้น / เสียงไม่ออก → แจ้งลูกค้าว่าทีมขอลงไลฟ์และขึ้นใหม่ ใช้เวลาประมาณ 2 นาที ถ้าเสียงไม่ออกให้พิมพ์และปักหมุดก่อนลงทุกครั้ง\n\nMoment When HIT: ทุกครั้งที่ Hit 01/02/03 ออก กดโมเมนต์ (ยกเว้นเกลือ) เพื่อเก็บไปตัดคลิปโปรโมท"],
+ ["OUTRO","ก็มาถึงช่วงเวลาสุดท้ายของวันนี้แล้ว สนุกมากเลยสำหรับ SASOM TCG Oripa Live\nเจอกันได้ทุกวันจันทร์ พุธ และศุกร์ เวลา 20:00–22:00 น.\n\nย้ำก่อนลา สินค้าทุกชิ้นที่ช้อปผ่าน SASOM การันตีแท้ 100% ถ้าเป็นของปลอม คืนเงิน 2 เท่า\nอยากดู Live แบบนี้อีก กดที่ Live & Feed ด้านล่างแอป แล้วพบกันใหม่ครั้งหน้า"]
+];
+
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function money(v){return (v||v===0)?Number(v).toLocaleString('en-US'):'—';}
+function toast(m){toastEl.textContent=m;toastEl.classList.add('show');setTimeout(function(){toastEl.classList.remove('show');},2600);}
+function noteKey(c){return c.sku || c.name;}
+function noteFor(c){return NOTES[c.sku]||NOTES[c.name]||{};}
+
+function loadLocal(){
+  try{ LOCAL = JSON.parse(localStorage.getItem(LS_KEY)||'{}'); }catch(e){ LOCAL = {}; }
+}
+function saveLocal(){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(LOCAL)); }catch(e){}
+}
+// ลำดับความสำคัญ: notes.json ในรีโป < บทพูดจากชีต < ที่แก้ค้างไว้ในเครื่อง
+function mergeNotes(serverNotes){
+  NOTES = {};
+  [BASE_NOTES, serverNotes||{}, LOCAL].forEach(function(src){
+    Object.keys(src||{}).forEach(function(k){
+      NOTES[k] = Object.assign({}, NOTES[k]||{}, src[k]);
+    });
+  });
+}
+
+function imgHtml(src){
+  if(!src) return '<span>No photo</span>';
+  return '<img src="'+esc(src)+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.innerHTML=\'<span>—</span>\'">';
+}
+function gradeHtml(c){
+  if(!c.cond) return '';
+  var sealed=/Booster|Trainer|ETB/i.test(c.cond)?' sealed':'';
+  return '<span class="grade'+sealed+'">'+esc(c.cond)+'</span>';
+}
+function priceBlock(c){
+  if(c.mkt) return '<div class="plabel">Market price</div><div class="price">'+money(c.mkt)+'<small>THB</small></div>';
+  if(c.sheet) return '<div class="plabel">Sheet price</div><div class="price">'+money(c.sheet)+'<small>THB</small></div>';
+  return '';
+}
+
+function applyFilter(){
+  var t=q.trim().toLowerCase();
+  view = ALL.filter(function(b){
+    if(statusFilter!=='ALL' && b.status!==statusFilter) return false;
+    if(!t) return true;
+    if(b.board.toLowerCase().indexOf(t)>=0) return true;
+    return b.cards.some(function(c){
+      return (c.name||'').toLowerCase().indexOf(t)>=0
+          || (c.sku||'').toLowerCase().indexOf(t)>=0
+          || (c.nick||'').toLowerCase().indexOf(t)>=0;
+    });
+  });
+  cur=0; idx=0; renderPills(); build();
+}
+function renderPills(){
+  pills.innerHTML='';
+  view.forEach(function(b,i){
+    var el=document.createElement('button');
+    el.className='pf'+(i===cur?' on':'');
+    el.innerHTML='<span class="dot '+b.status+'"></span>'+esc(b.board);
+    el.onclick=function(){cur=i;idx=0;renderPills();build();};
+    pills.appendChild(el);
+  });
+}
+function build(){
+  if(!view.length){
+    slides=[{html:'<div class="empty">No boards match your filter</div>'}];
+    return render();
+  }
+  var b=view[cur]; slides=[];
+  var hits=b.cards.filter(function(c){return c.kind==='hit';});
+  var top=b.cards.slice().sort(function(a,c){return (c.mkt||c.sheet||0)-(a.mkt||a.sheet||0);})[0];
+  slides.push({html:'<div class="cover"><span class="badge '+b.status+'">'+b.status+'</span>'+
+    '<div class="big">'+esc(b.board)+'</div>'+
+    '<div class="facts"><span>Per pull <b>'+esc(b.price)+'</b></span>'+
+    '<span>Slots <b>'+b.slots+'</b></span><span>Hits <b>'+hits.length+'</b></span>'+
+    (b.date?'<span>Schedule <b>'+esc(b.date)+'</b></span>':'')+'</div>'+
+    (top?'<div class="top">Top hit: '+esc(String(top.name).split('[')[0].trim())+' — '+money(top.mkt||top.sheet)+' THB</div>':'')+
+    '</div>'});
+  b.cards.forEach(function(c){
+    var tags=[c.rar,c.set?('SET '+c.set):'',c.lang].filter(Boolean).join(' · ');
+    slides.push({card:c, head:
+      '<div class="kicker">Slot</div>'+
+      '<div class="headrow"><span class="slotno">'+esc(c.slot)+'</span>'+gradeHtml(c)+'</div>'+
+      (c.nick?'<div class="nick">'+esc(c.nick)+'</div>':'')+
+      '<div class="cname">'+esc(c.name)+'</div>'+
+      (tags?'<div class="tags">'+esc(tags)+'</div>':'')+
+      (c.remark?'<div class="tags">'+esc(c.remark)+'</div>':'')+
+      priceBlock(c)});
+  });
+  SCRIPTS.forEach(function(s){
+    slides.push({script:s});
+  });
+  render();
+}
+function cardBody(c){
+  var n=noteFor(c), key=noteKey(c);
+  if(editing===key){
+    return '<div class="edlabel">MC talk track</div>'+
+      '<textarea class="ed" id="edNote" placeholder="Where the card came from, why people love it, why it is worth collecting…">'+esc(n.note||'')+'</textarea>'+
+      '<div class="edlabel">Chase in box (sealed products only)</div>'+
+      '<input class="ed" id="edChase" placeholder="Which cards are worth chasing in this box" value="'+esc(n.chase||'')+'">'+
+      '<div class="editbar">'+
+        '<button class="btn primary" id="edSave">Save</button>'+
+        '<button class="btn" id="edCancel">Cancel</button>'+
+        '<span class="counter" id="edMsg"></span>'+
+      '</div>';
+  }
+  return (n.note?'<div class="talk">'+esc(n.note)+'</div>':'')+
+    (n.chase?'<div class="chase">'+esc(n.chase).replace('CHASE:','<b>CHASE IN BOX</b><br>')+'</div>':'')+
+    '<div class="editbar"><button class="tiny" data-edit="'+esc(key)+'">'+
+      (n.note||n.chase?'Edit talk track':'+ Add talk track')+'</button>'+
+      (LOCAL[key]?'<span class="dirty">Not synced to Sheet</span>':'')+'</div>';
+}
+
+function scriptBody(s){
+  var key='__script:'+s[0];
+  var text=(NOTES[key]&&NOTES[key].note)||s[1];
+  if(editing===key){
+    return '<div class="kicker">'+esc(s[0])+'</div>'+
+      '<textarea class="ed" id="edNote" style="min-height:260px">'+esc(text)+'</textarea>'+
+      '<input type="hidden" id="edChase" value="">'+
+      '<div class="editbar">'+
+        '<button class="btn primary" id="edSave">Save</button>'+
+        '<button class="btn" id="edCancel">Cancel</button>'+
+        '<span class="counter" id="edMsg"></span>'+
+      '</div>';
+  }
+  return '<div class="kicker">'+esc(s[0])+'</div><div class="script">'+esc(text)+'</div>'+
+    '<div class="editbar"><button class="tiny" data-edit="'+esc(key)+'">Edit text</button>'+
+      (LOCAL[key]?'<span class="dirty">Not synced to Sheet</span>':'')+'</div>';
+}
+
+function render(){
+  var s=slides[idx];
+  stage.innerHTML = s.card
+    ? '<div class="slide"><div class="shot">'+imgHtml(s.card.img)+'</div><div>'+s.head+cardBody(s.card)+'</div></div>'
+    : (s.script ? '<div>'+scriptBody(s.script)+'</div>' : s.html);
+  wireEditors();
+  counter.textContent=(idx+1)+' / '+slides.length;
+  track.innerHTML=slides.map(function(s,i){return '<div class="tick '+(i===idx?'on':(i<idx?'done':''))+'" data-i="'+i+'"></div>';}).join('');
+  document.getElementById('prev').disabled = idx===0;
+  document.getElementById('next').disabled = idx===slides.length-1;
+}
+function go(d){var n=idx+d; if(n<0||n>=slides.length) return; idx=n; render();}
+
+function setData(payload, source){
+  ALL = payload.boards || [];
+  var rank={NEW:0,ON:1};
+  ALL.sort(function(a,b){
+    var r=(rank[a.status]===undefined?9:rank[a.status])-(rank[b.status]===undefined?9:rank[b.status]);
+    if(r) return r;
+    return (parseFloat(String(b.price).replace(/,/g,''))||0)-(parseFloat(String(a.price).replace(/,/g,''))||0);
+  });
+  mergeNotes(payload.notes);
+  var pending=Object.keys(LOCAL).length;
+  metaEl.textContent = ALL.length+' boards · data '+(payload.synced_at||'unknown date')+' · '+source+
+    (pending?' · '+pending+' unsynced edit'+(pending>1?'s':''):'');
+  applyFilter();
+}
+
+async function loadCache(){
+  var [b,n] = await Promise.all([
+    fetch('data/boards.json',{cache:'no-store'}).then(function(r){return r.json();}),
+    fetch('data/notes.json',{cache:'no-store'}).then(function(r){return r.json();}).catch(function(){return {};})
+  ]);
+  BASE_NOTES = n;
+  setData(b, 'from repo file');
+}
+async function doSync(){
+  var btn=document.getElementById('sync');
+  if(!SYNC_URL){ toast('SYNC_URL is not set in index.html'); return; }
+  btn.disabled=true; btn.textContent='Syncing…';
+  try{
+    var r = await fetch(SYNC_URL, {cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    var payload = await r.json();
+    if(!payload.boards) throw new Error('unexpected response format');
+    setData(payload, 'live from Sheet');
+    toast('Synced · '+payload.boards.length+' boards');
+  }catch(e){
+    toast('Sync failed: '+e.message);
+  }finally{
+    btn.disabled=false; btn.textContent='Sync from Sheet';
+  }
+}
+
+function wireEditors(){
+  var btn=stage.querySelector('[data-edit]');
+  if(btn) btn.onclick=function(){ editing=this.dataset.edit; render(); };
+
+  var save=document.getElementById('edSave');
+  if(!save) return;
+  document.getElementById('edCancel').onclick=function(){ editing=null; render(); };
+  save.onclick=async function(){
+    var key=editing;
+    var note=document.getElementById('edNote').value.trim();
+    var chase=document.getElementById('edChase').value.trim();
+    var msg=document.getElementById('edMsg');
+
+    var entry={}; if(note) entry.note=note; if(chase) entry.chase=chase;
+    NOTES[key]=entry; LOCAL[key]=entry; saveLocal();
+
+    if(SYNC_URL){
+      save.disabled=true; msg.textContent='Saving to Sheet…';
+      try{
+        var r=await fetch(SYNC_URL,{
+          method:'POST',
+          headers:{'Content-Type':'text/plain;charset=utf-8'},   // เลี่ยง CORS preflight
+          body:JSON.stringify({key:key,note:note,chase:chase,by:''})
+        });
+        var j=await r.json();
+        if(!j.ok) throw new Error(j.error||'unknown error');
+        delete LOCAL[key]; saveLocal();
+        toast('Saved to Sheet');
+      }catch(e){
+        toast('Saved locally, but could not reach the Sheet: '+e.message);
+      }finally{ save.disabled=false; }
+    }else{
+      toast('Saved on this device only — SYNC_URL is not set');
+    }
+    editing=null; render();
+  };
+}
+
+document.getElementById('sync').onclick=doSync;
+document.getElementById('prev').onclick=function(){go(-1);};
+document.getElementById('next').onclick=function(){go(1);};
+track.onclick=function(e){var t=e.target.closest('.tick'); if(t){idx=+t.dataset.i;render();}};
+document.getElementById('statusSeg').addEventListener('click',function(e){
+  var btn=e.target.closest('button'); if(!btn) return;
+  statusFilter=btn.dataset.s;
+  Array.prototype.forEach.call(this.children,function(c){c.classList.remove('active');});
+  btn.classList.add('active');
+  applyFilter();
+});
+var qt=null;
+document.getElementById('q').addEventListener('input',function(e){
+  var v=e.target.value; clearTimeout(qt);
+  qt=setTimeout(function(){q=v;applyFilter();},180);
+});
+document.addEventListener('keydown',function(e){
+  if(document.activeElement && document.activeElement.id==='q') return;
+  if(e.key==='ArrowRight'||e.key===' '){go(1);e.preventDefault();}
+  if(e.key==='ArrowLeft'){go(-1);e.preventDefault();}
+});
+var sx=null;
+stage.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+stage.addEventListener('touchend',function(e){
+  if(sx===null) return; var dx=e.changedTouches[0].clientX-sx; sx=null;
+  if(Math.abs(dx)>50) go(dx<0?1:-1);
+},{passive:true});
+document.getElementById('themeToggle').addEventListener('click',function(){
+  var d=document.documentElement.getAttribute('data-theme')==='dark';
+  document.documentElement.setAttribute('data-theme',d?'light':'dark');
+});
+var lb=document.getElementById('lb'), lbi=document.getElementById('lbi');
+document.addEventListener('click',function(e){
+  if(e.target.tagName==='IMG'&&e.target.closest('.shot')){lbi.src=e.target.src;lb.style.display='flex';}
+  else if(e.target.closest('#lb')){lb.style.display='none';}
+});
+
+loadLocal();
+loadCache().catch(function(e){
+  stage.innerHTML='<div class="empty">Could not load data: '+esc(e.message)+'</div>';
+});
+</script>
+</body></html>
