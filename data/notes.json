@@ -24,10 +24,44 @@
   "note": "พิคาชูใบเปิดชุดฉลอง 25 ปี เป็นใบแรกของชุด คนเก็บสายครบรอบจะเริ่มจากใบนี้ ราคาสองพันสาม"
  },
  "PKMN-TCGCPMMEPBBBE": {
-  "chase": "CHASE: Mega Darkrai ex SIR เป็นใบท็อป ตามด้วย MUR ปั๊มทอง · Mega Zeraora ex, Mega Chandelure ex, Mega Excadrill ex · ME05 ตรงกับ Abyss Eye ฝั่ง JP"
+  "chase": "CHASE: Mega Darkrai ex SIR เป็นใบท็อป ตามด้วย MUR ปั๊มทอง · Mega Zeraora ex, Mega Chandelure ex, Mega Excadrill ex · ME05 ตรงกับ Abyss Eye ฝั่ง JP",
+  "chaseCards": [
+   {
+    "name": "Mega Darkrai ex MHR [PBL 120/084]",
+    "img": "https://img.sasom.co.th/pbl-120-084-en-me5-120-7a3e0-pokemon-mega-darkrai-ex-mhr-pbl-120-084-mega-evolution-pitch-black-en.jpg",
+    "mkt": 72503
+   },
+   {
+    "name": "Mega Darkrai ex SIR [PBL 116/084]",
+    "img": "https://img.sasom.co.th/pbl-116-084-en-me5-116-7a3e0-pokemon-mega-darkrai-ex-sir-pbl-116-084-mega-evolution-pitch-black-en.jpg",
+    "mkt": 40442
+   },
+   {
+    "name": "Mega Zeraora ex SIR [PBL 114/084]",
+    "img": "https://img.sasom.co.th/pbl-114-084-en-me5-114-7a3e0-pokemon-mega-zeraora-ex-sir-pbl-114-084-mega-evolution-pitch-black-en.jpg",
+    "mkt": 30743
+   }
+  ]
  },
  "PKMN-TCGCPMECRBBE": {
-  "chase": "CHASE: Mega Greninja ex เป็นใบท็อป (SIR และ MUR ปั๊มทอง) ตามด้วย Cinccino ex SIR และเทรนเนอร์ AZ / Roxie · ME04 คือเวอร์ชัน EN ของ M4 Ninja Spinner"
+  "chase": "CHASE: Mega Greninja ex เป็นใบท็อป (SIR และ MUR ปั๊มทอง) ตามด้วย Cinccino ex SIR และเทรนเนอร์ AZ / Roxie · ME04 คือเวอร์ชัน EN ของ M4 Ninja Spinner",
+  "chaseCards": [
+   {
+    "name": "Mega Greninja ex MHR [CRI 122/086]",
+    "img": "https://img.sasom.co.th/cri-122-086-en-me4-122-7a3e0-pokemon-mega-greninja-ex-mhr-cri-122-086-mega-evolution-chaos-rising-en.jpg",
+    "mkt": 27918
+   },
+   {
+    "name": "Mega Greninja ex SIR [CRI 116/086]",
+    "img": "https://img.sasom.co.th/cri-116-086-en-me4-116-7a3e0-pokemon-mega-greninja-ex-sir-cri-116-086-mega-evolution-chaos-rising-en.jpg",
+    "mkt": 16260
+   },
+   {
+    "name": "Emma UR [CRI 107/086]",
+    "img": "https://img.sasom.co.th/cri-107-086-en-me4-107-7a3e0-pokemon-emma-ur-cri-107-086-mega-evolution-chaos-rising-en.jpg",
+    "mkt": 15300
+   }
+  ]
  },
  "CP4-048-131-JP-CP4-48-7A3E0": {
   "note": "เกงก้า EX ยุค XY จาก Premium Champion Pack ของเก่าสิบปี สายเกงก้ารู้กันว่าใบนี้หาสภาพสวยยากมาก เพราะยุคนั้นไม่มีใครส่งเกรด ตอนนี้ของเกรด 10 ในตลาดเหลือน้อยจริงๆ ราคาสองหมื่น"
@@ -57,7 +91,24 @@
   "note": "พริน AR จาก Inferno X หรือ Jigglypuff ที่คนรู้จัก โปเกมอนร้องเพลงกล่อมให้หลับในอนิเมะ อาร์ตน่ารักและราคาเข้าถึงง่าย พันหนึ่ง"
  },
  "PKMN-TCGCPMESEBPJ": {
-  "chase": "CHASE: Mega Rayquaza ex MUR 113/076 (ปั๊มทอง ใบท็อปของเซ็ต) และ SAR 110/076 อาร์ตโดย Kazuki Minami · รองลงมา Mega Golisopod ex SAR 107 และ Zinnia's Trust SAR 112 · M6 ธีมฮoenn ลง JP 31 ก.ค. 2026 EN คือ Delta Reign"
+  "chase": "CHASE: Mega Rayquaza ex MUR 113/076 (ปั๊มทอง ใบท็อปของเซ็ต) และ SAR 110/076 อาร์ตโดย Kazuki Minami · รองลงมา Mega Golisopod ex SAR 107 และ Zinnia's Trust SAR 112 · M6 ธีมฮoenn ลง JP 31 ก.ค. 2026 EN คือ Delta Reign",
+  "chaseCards": [
+   {
+    "name": "Mega Rayquaza ex MUR [M6 113/076]",
+    "img": "https://img.sasom.co.th/m6-113-076-jp-m6-113-7a3e0-pokemon-mega-rayquaza-ex-mur-m6-113-076-mega-evolution-storm-emeralda-jp.jpg",
+    "mkt": 76177
+   },
+   {
+    "name": "Mega Rayquaza ex SAR [M6 110/076]",
+    "img": "https://img.sasom.co.th/m6-110-076-jp-m6-110-7a3e0-pokemon-mega-rayquaza-ex-sar-m6-110-076-mega-evolution-storm-emeralda-jp.jpg",
+    "mkt": 36637
+   },
+   {
+    "name": "Mega Rayquaza ex SR [M6 095/076]",
+    "img": "https://img.sasom.co.th/m6-095-076-jp-m6-95-7a3e0-pokemon-mega-rayquaza-ex-sr-m6-095-076-mega-evolution-storm-emeralda-jp.jpg",
+    "mkt": 10200
+   }
+  ]
  },
  "OP-224-OP01-016": {
   "note": "นามิ R-SP จาก Premium Booster CARD THE BEST สายนามิถือว่านี่คือใบระดับตำนาน อาร์ตสวย เรตหายาก และเป็นของจากเล่มพรีเมียมที่กดออกมาน้อย คนเล่น One Piece ที่เก็บตัวละครหญิงจะมีใบนี้อยู่ในลิสต์ตลอด ราคาสามหมื่นกว่า"
@@ -72,7 +123,24 @@
   "chase": "CHASE: SEC OP17-118 Rocks D. Xebec (ใบแรกของตัวละคร) + OP17-119 Loki · ใบท็อปคือ Luffy Pirate Crew Super Parallel (SEC-SP) ราคาญี่ปุ่นเกิน 1 ล้านเยน และ Xebec SEC-SP ราว 8 แสนเยน · เล่มครบรอบ 4 ปี เปิดตัวเรตใหม่ Super Leader Parallel (ครบทั้ง 6 Leader ครั้งแรก) และ Gold Anniversary SP ชุด 4 จักรพรรดิ"
  },
  "OP-TCGCOPO1TTOBBPJ": {
-  "chase": "CHASE: เล่มก่อนหน้า OP-17 ธีม Time of Battle — ไล่ล่า Manga Rare / SEC ของเล่ม · ยืนยันชื่อใบท็อปก่อนไลฟ์"
+  "chase": "CHASE: เล่มก่อนหน้า OP-17 ธีม Time of Battle — ไล่ล่า Manga Rare / SEC ของเล่ม · ยืนยันชื่อใบท็อปก่อนไลฟ์",
+  "chaseCards": [
+   {
+    "name": "Sakazuki SR [OP16-065]",
+    "img": "https://img.sasom.co.th/op16-065-p2-jp-sakazuki.jpg",
+    "mkt": 63281
+   },
+   {
+    "name": "Kuzan R [OP16-063]",
+    "img": "https://img.sasom.co.th/op16-063-p2-jp-kuzan.jpg",
+    "mkt": 60889
+   },
+   {
+    "name": "Borsalino R [OP16-073]",
+    "img": "https://img.sasom.co.th/op16-073-p2-jp-borsalino.jpg",
+    "mkt": 57410
+   }
+  ]
  },
  "OP-P-110-JP": {
   "note": "ลูฟี่จากงาน One Piece Day'25 อีเวนต์ประจำปีที่ญี่ปุ่น ได้เฉพาะคนที่ไปงานเท่านั้น ซัพพลายในไทยเลยน้อยมากเพราะต้องผ่านคนที่บินไปหิ้วกลับมา ราคาหกพันเก้า"
@@ -111,16 +179,84 @@
   "chase": "CHASE: เซ็ตไทยธีมเงามืด — Mega Darkrai ex เป็นตัวชู ตามด้วย Mega Zeraora ex, Mega Chandelure ex, Mega Excadrill ex · ตรงกับ Pitch Black (EN) / Abyss Eye (JP)"
  },
  "DISNEYLORCANA-TCGCDLWITWBBE": {
-  "chase": "CHASE: ไล่ล่า Enchanted และ Iconic ของเซ็ต · ยืนยันชื่อใบท็อปก่อนไลฟ์"
+  "chase": "CHASE: ไล่ล่า Enchanted และ Iconic ของเซ็ต · ยืนยันชื่อใบท็อปก่อนไลฟ์",
+  "chaseCards": [
+   {
+    "name": "Ariel Ethereal Voice R [17/204]",
+    "img": "https://img.sasom.co.th/17-204-en-witw-17-fea08-disney-lorcana-ariel-ethereal-voice-r-17-204-whispers-in-the-well-en.jpg",
+    "mkt": 105662
+   },
+   {
+    "name": "Ariel Ethereal Voice Iconic [241/204]",
+    "img": "https://img.sasom.co.th/241-204-en-witw-241-7a3e0-disney-lorcana-ariel-ethereal-voice-iconic-241-204-whispers-in-the-well-en.jpg",
+    "mkt": 103652
+   },
+   {
+    "name": "Hades Looking for a Deal L [56/204]",
+    "img": "https://img.sasom.co.th/56-204-en-witw-56-fea08-disney-lorcana-hades-looking-for-a-deal-l-56-204-whispers-in-the-well-en.jpg",
+    "mkt": 90538
+   }
+  ]
  },
  "DLCN-TCGCDLWBBE": {
-  "chase": "CHASE: ไล่ล่า Enchanted และ Iconic ของเซ็ต ธีมฤดูหนาว · ยืนยันชื่อใบท็อปก่อนไลฟ์"
+  "chase": "CHASE: ไล่ล่า Enchanted และ Iconic ของเซ็ต ธีมฤดูหนาว · ยืนยันชื่อใบท็อปก่อนไลฟ์",
+  "chaseCards": [
+   {
+    "name": "Moana Curious Explorer L [155/204]",
+    "img": "https://img.sasom.co.th/155-204-en-wntr-155-fea08-disney-lorcana-moana-curious-explorer-l-155-204-winterspell-en.jpg",
+    "mkt": 139754
+   },
+   {
+    "name": "Anna Soothing Sister L [50/204]",
+    "img": "https://img.sasom.co.th/50-204-en-wntr-50-fea08-disney-lorcana-anna-soothing-sister-l-50-204-winterspell-en.jpg",
+    "mkt": 81099
+   },
+   {
+    "name": "Angel Experiment 624 L [191/204]",
+    "img": "https://img.sasom.co.th/191-204-en-wntr-191-fea08-disney-lorcana-angel-experiment-624-l-191-204-winterspell-en.jpg",
+    "mkt": 79339
+   }
+  ]
  },
  "DLCN-TCGCDL0WUPPE": {
-  "chase": "CHASE: Iconic 2 ใบ — Merida – Formidable Archer และ Buzz Lightyear – Jungle Ranger สไตล์ Lore Nouveau เป็นเรตสูงสุดของเซ็ต · มี Enchanted 18 ใบ และ Epic 18 ใบ (Edna Mode เด่นสุด) · เซ็ตแรกที่ Pixar เข้า Lorcana (Toy Story / Incredibles / Brave)"
+  "chase": "CHASE: Iconic 2 ใบ — Merida – Formidable Archer และ Buzz Lightyear – Jungle Ranger สไตล์ Lore Nouveau เป็นเรตสูงสุดของเซ็ต · มี Enchanted 18 ใบ และ Epic 18 ใบ (Edna Mode เด่นสุด) · เซ็ตแรกที่ Pixar เข้า Lorcana (Toy Story / Incredibles / Brave)",
+  "chaseCards": [
+   {
+    "name": "Merida Formidable Archer L [191/204]",
+    "img": "https://img.sasom.co.th/191-204-en-wild-191-fea08-disney-lorcana-merida-formidable-archer-l-191-204-wilds-unknown-en.jpg",
+    "mkt": 442000
+   },
+   {
+    "name": "Buzz Lightyear Jungle Ranger L [91/204]",
+    "img": "https://img.sasom.co.th/91-204-en-wild-91-fea08-disney-lorcana-buzz-lightyear-jungle-ranger-l-91-204-wilds-unknown-en.jpg",
+    "mkt": 300676
+   },
+   {
+    "name": "Buzz Lightyear Jungle Ranger Iconic [241/204]",
+    "img": "https://img.sasom.co.th/241-204-en-wild-241-7a3e0-disney-lorcana-buzz-lightyear-jungle-ranger-iconic-241-204-wilds-unknown-en.jpg",
+    "mkt": 131082
+   }
+  ]
  },
  "DISNEYLORCANA-TCGCDLWUBPE": {
-  "chase": "CHASE: Iconic 2 ใบ — Merida – Formidable Archer และ Buzz Lightyear – Jungle Ranger สไตล์ Lore Nouveau เป็นเรตสูงสุดของเซ็ต · มี Enchanted 18 ใบ และ Epic 18 ใบ (Edna Mode เด่นสุด) · เซ็ตแรกที่ Pixar เข้า Lorcana (Toy Story / Incredibles / Brave)"
+  "chase": "CHASE: Iconic 2 ใบ — Merida – Formidable Archer และ Buzz Lightyear – Jungle Ranger สไตล์ Lore Nouveau เป็นเรตสูงสุดของเซ็ต · มี Enchanted 18 ใบ และ Epic 18 ใบ (Edna Mode เด่นสุด) · เซ็ตแรกที่ Pixar เข้า Lorcana (Toy Story / Incredibles / Brave)",
+  "chaseCards": [
+   {
+    "name": "Merida Formidable Archer L [191/204]",
+    "img": "https://img.sasom.co.th/191-204-en-wild-191-fea08-disney-lorcana-merida-formidable-archer-l-191-204-wilds-unknown-en.jpg",
+    "mkt": 442000
+   },
+   {
+    "name": "Buzz Lightyear Jungle Ranger L [91/204]",
+    "img": "https://img.sasom.co.th/91-204-en-wild-91-fea08-disney-lorcana-buzz-lightyear-jungle-ranger-l-91-204-wilds-unknown-en.jpg",
+    "mkt": 300676
+   },
+   {
+    "name": "Buzz Lightyear Jungle Ranger Iconic [241/204]",
+    "img": "https://img.sasom.co.th/241-204-en-wild-241-7a3e0-disney-lorcana-buzz-lightyear-jungle-ranger-iconic-241-204-wilds-unknown-en.jpg",
+    "mkt": 131082
+   }
+  ]
  },
  "XYP-156-XY-P-JP-XYP-156-7A3E0": {
   "note": "พิคาชูโปรโมยุค XY ของเก่าเกือบสิบปีแล้ว ยุคนั้นคนยังไม่ค่อยส่งเกรด เปิดมาก็เล่นกันเลย ของที่รอดมาถึงวันนี้ในสภาพสวยเลยเหลือน้อยมาก สองปีหลังราคาไต่ขึ้นเรื่อยๆ เพราะสายสะสมพิคาชูเริ่มไล่เก็บย้อนหลังให้ครบทุกโปรโม"
@@ -171,7 +307,24 @@
   "note": "มิวทู VSTAR SAR มิวทูลายเต็มใบจาก VSTAR Universe มิวทูคือโปเกมอนที่แทบทุกคนรู้จักแม้ไม่ได้เล่นเกม พอมาเป็น SAR ลายเต็มใบก็เป็นใบที่คนนอกวงการก็ยังอยากได้ ราคาเจ็ดพันสาม"
  },
  "PKMN-TCGCPMMNSBPJ": {
-  "chase": "CHASE: Mega Greninja ex MUR 120/083 ปั๊มทอง ใบท็อป ออกราว 1 ใน 50 กล่อง · SAR 114/083 เป็น chase รอง · ตามด้วย Cinccino ex SAR 117, Mega Dragalge ex SAR 116, AZ's Tranquility, Roxie's Performance · เกคโคก้าเคยได้ Pokemon of the Year 2020 นี่คือร่าง Mega ใบแรก"
+  "chase": "CHASE: Mega Greninja ex MUR 120/083 ปั๊มทอง ใบท็อป ออกราว 1 ใน 50 กล่อง · SAR 114/083 เป็น chase รอง · ตามด้วย Cinccino ex SAR 117, Mega Dragalge ex SAR 116, AZ's Tranquility, Roxie's Performance · เกคโคก้าเคยได้ Pokemon of the Year 2020 นี่คือร่าง Mega ใบแรก",
+  "chaseCards": [
+   {
+    "name": "Mega Greninja ex MUR [M4 120/083]",
+    "img": "https://img.sasom.co.th/m4-120-083-jp-m4-120-7a3e0-pokemon-mega-greninja-ex-mur-m4-120-083-mega-evolution-ninja-spinner-jp.jpg",
+    "mkt": 32690
+   },
+   {
+    "name": "Mega Greninja ex SAR [M4 114/083]",
+    "img": "https://img.sasom.co.th/m4-114-083-jp-m4-114-7a3e0-pokemon-mega-greninja-ex-sar-m4-114-083-mega-evolution-ninja-spinner-jp.jpg",
+    "mkt": 7952
+   },
+   {
+    "name": "Cinccino ex SR [M4 103/083]",
+    "img": "https://img.sasom.co.th/m4-103-083-jp-m4-103-7a3e0-pokemon-cinccino-ex-sr-m4-103-083-mega-evolution-ninja-spinner-jp.jpg",
+    "mkt": 3400
+   }
+  ]
  },
  "SV8A-217-187-JP-SV8A-217-7A3E0": {
   "note": "แบล็คกี้ ex SAR จาก Terastal Festival คนไทยเรียกกันว่า 'แบล็คกี้' ตามชื่อญี่ปุ่น เป็นร่างอีวุยที่ฮิตที่สุดตลอดกาล ดำ ขลัง วงแหวนสีเหลืองเรืองแสง ใครเก็บสายอีวุยต้องมีใบนี้เป็นใบแรก เป็น chase หลักของเซ็ตและเป็นการ์ดที่คนไทยตามหาที่สุดใบหนึ่งของยุค SV ราคาหมื่นแปด"
@@ -246,7 +399,24 @@
   "note": "ฮอดี้ โจนส์ ลีดเดอร์พาราเรลจาก Wings of Captain ใบลีดเดอร์ของเด็คสายเกาะเงือก คนที่เล่นเด็คนี้จะตามหาเวอร์ชันพาราเรล ราคาสองพันห้า"
  },
  "PKMN-TCGCPMDEBPJ": {
-  "chase": "CHASE: Mega Gengar ex SAR 240/193 (ใบท็อป) และ MUR ปั๊มทอง · ตามด้วย Mega Dragonite ex SAR 246, N's Zoroark ex SAR 242, Pikachu ex SAR 234 · High Class Pack การันตี ex ทุกซอง 10 ใบ/ซอง"
+  "chase": "CHASE: Mega Gengar ex SAR 240/193 (ใบท็อป) และ MUR ปั๊มทอง · ตามด้วย Mega Dragonite ex SAR 246, N's Zoroark ex SAR 242, Pikachu ex SAR 234 · High Class Pack การันตี ex ทุกซอง 10 ใบ/ซอง",
+  "chaseCards": [
+   {
+    "name": "Mega Gengar ex SAR [M2a 240/193]",
+    "img": "https://img.sasom.co.th/m2a-240-193-jp-m2a-240-7a3e0-pokemon-mega-gengar-ex-sar-m2a-240-193-mega-evolution-mega-dream-ex-jp.jpg",
+    "mkt": 17345
+   },
+   {
+    "name": "Mega Dragonite ex MUR [M2a 250/193]",
+    "img": "https://img.sasom.co.th/m2a-250-193-jp-m2a-250-7a3e0-pokemon-mega-dragonite-ex-mur-m2a-250-193-mega-evolution-mega-dream-ex-jp.jpg",
+    "mkt": 15316
+   },
+   {
+    "name": "Pikachu ex SAR [M2a 234/193]",
+    "img": "https://img.sasom.co.th/m2a-234-193-jp-m2a-234-7a3e0-pokemon-pikachu-ex-sar-m2a-234-193-mega-evolution-mega-dream-ex-jp.jpg",
+    "mkt": 10524
+   }
+  ]
  },
  "M2-110-080-JP-M2-110-7A3E0": {
   "note": "ลิซาด้อน X ex SAR จาก Inferno X ลิซาด้อนเวอร์ชันเปลวไฟสีน้ำเงิน ซึ่งเป็นภาพที่คนจำได้ทันทีจากเกมยุค Mega คนไทยเรียกกันว่า 'ลิซาด้อนไฟน้ำเงิน' ไม่ต้องบิลด์อะไรเลย แค่พลิกมาเจอก็จบ เป็นใบที่ราคาสูงสุดของเซ็ต M2 ตอนนี้อยู่ที่สามหมื่นต้นๆ"
@@ -267,16 +437,74 @@
   "note": "ลิซาด้อน X ex เวอร์ชัน Double Rare จาก Inferno X เป็นเวอร์ชันที่เข้าถึงง่ายที่สุดของลิซาด้อนไฟน้ำเงิน ราคาพันสี่"
  },
  "PKMN-TCGCPMEAHETBE": {
-  "chase": "CHASE: Mega Gengar ex และ Mega Dragonite ex ระดับ Special Illustration Rare + Mega Hyper Rare ปั๊มทอง · เป็นเวอร์ชัน EN ของ M2a MEGA Dream ex"
+  "chase": "CHASE: Mega Gengar ex และ Mega Dragonite ex ระดับ Special Illustration Rare + Mega Hyper Rare ปั๊มทอง · เป็นเวอร์ชัน EN ของ M2a MEGA Dream ex",
+  "chaseCards": [
+   {
+    "name": "Pikachu ex SIR [ASC 276/217]",
+    "img": "https://img.sasom.co.th/asc-276-217-en-me2pt5-276-7a3e0-pokemon-pikachu-ex-sir-asc-276-217-mega-evolution-ascended-heroes-en.jpg",
+    "mkt": 73748
+   },
+   {
+    "name": "Mega Charizard Y ex MHR [ASC 294/217]",
+    "img": "https://img.sasom.co.th/asc-294-217-en-me2pt5-294-7a3e0-pokemon-mega-charizard-y-ex-mhr-asc-294-217-mega-evolution-ascended-heroes-en.jpg",
+    "mkt": 65098
+   },
+   {
+    "name": "Mega Gengar ex SIR [ASC 284/217]",
+    "img": "https://img.sasom.co.th/asc-284-217-en-me2pt5-284-7a3e0-pokemon-mega-gengar-ex-sir-asc-284-217-mega-evolution-ascended-heroes-en.jpg",
+    "mkt": 64645
+   }
+  ]
  },
  "PKMN-TCGCPMEPFETBE": {
-  "chase": "CHASE: Mega Charizard X ex SIR/MUR เป็นใบท็อป ตามด้วย Mega Gengar ex, Mega Heracross ex, Mega Lopunny ex · ME02 เวอร์ชัน EN ของ Inferno X (M2) เซ็ตเล็ก 130 ใบ"
+  "chase": "CHASE: Mega Charizard X ex SIR/MUR เป็นใบท็อป ตามด้วย Mega Gengar ex, Mega Heracross ex, Mega Lopunny ex · ME02 เวอร์ชัน EN ของ Inferno X (M2) เซ็ตเล็ก 130 ใบ",
+  "chaseCards": [
+   {
+    "name": "Charcadet PROMO [MEP 022] แถมเฉพาะ ETB",
+    "img": "https://img.sasom.co.th/mep-022-en-mep-22-f3ee3-pokemon-charcadet-promo-mep-022-mega-evolution-mega-evolution-black-star-promos-found-in-pc-phantasmal-flames-etb-en.jpg",
+    "mkt": 87322
+   },
+   {
+    "name": "Mega Charizard X ex MHR [PFL 130/094]",
+    "img": "https://img.sasom.co.th/pfl-130-094-en-me2-130-7a3e0-pokemon-mega-charizard-x-ex-mhr-pfl-130-094-mega-evolution-phantasmal-flames-en.jpg",
+    "mkt": 83964
+   },
+   {
+    "name": "Mega Charizard X ex SIR [PFL 125/094]",
+    "img": "https://img.sasom.co.th/pfl-125-094-en-me2-125-7a3e0-pokemon-mega-charizard-x-ex-sir-pfl-125-094-mega-evolution-phantasmal-flames-en.jpg",
+    "mkt": 61678
+   }
+  ]
  },
  "PKMN-TCGCPMECRETBE": {
-  "chase": "CHASE: Mega Greninja ex เป็นใบท็อป (SIR และ MUR ปั๊มทอง) ตามด้วย Cinccino ex SIR และเทรนเนอร์ AZ / Roxie · ME04 คือเวอร์ชัน EN ของ M4 Ninja Spinner"
+  "chase": "CHASE: Mega Greninja ex เป็นใบท็อป (SIR และ MUR ปั๊มทอง) ตามด้วย Cinccino ex SIR และเทรนเนอร์ AZ / Roxie · ME04 คือเวอร์ชัน EN ของ M4 Ninja Spinner",
+  "chaseCards": [
+   {
+    "name": "Mega Greninja ex MHR [CRI 122/086]",
+    "img": "https://img.sasom.co.th/cri-122-086-en-me4-122-7a3e0-pokemon-mega-greninja-ex-mhr-cri-122-086-mega-evolution-chaos-rising-en.jpg",
+    "mkt": 27918
+   },
+   {
+    "name": "Mega Greninja ex SIR [CRI 116/086]",
+    "img": "https://img.sasom.co.th/cri-116-086-en-me4-116-7a3e0-pokemon-mega-greninja-ex-sir-cri-116-086-mega-evolution-chaos-rising-en.jpg",
+    "mkt": 16260
+   },
+   {
+    "name": "Emma UR [CRI 107/086]",
+    "img": "https://img.sasom.co.th/cri-107-086-en-me4-107-7a3e0-pokemon-emma-ur-cri-107-086-mega-evolution-chaos-rising-en.jpg",
+    "mkt": 15300
+   }
+  ]
  },
  "PKMN-TCGCPMEPOETBEE": {
-  "chase": "CHASE: Mega Zygarde ex เป็นตัวชูของเซ็ต (SIR / MUR) · ME03 เวอร์ชัน EN ของ M3 Nihil Zero"
+  "chase": "CHASE: Mega Zygarde ex เป็นตัวชูของเซ็ต (SIR / MUR) · ME03 เวอร์ชัน EN ของ M3 Nihil Zero",
+  "chaseCards": [
+   {
+    "name": "Mega Zygarde ex MHR [POR 124/088]",
+    "img": "https://img.sasom.co.th/por-124-088-en-me3-124-7a3e0-pokemon-mega-zygarde-ex-mhr-por-124-088-mega-evolution-perfect-order-en.jpg",
+    "mkt": 17354
+   }
+  ]
  },
  "PKMN-TCGCPFPICS1E": {
   "chase": "CHASE: ชุดรวมอาร์ตโปเกมอนเริ่มต้นทั้ง 3 สาย — เน้นงานอาร์ต ไม่ใช่สายไล่เรต"
@@ -315,7 +543,24 @@
   "note": "อีวุย ex SAR จาก Terastal Festival ตัวแม่ของทั้งสาย ใครเก็บอีวุยก็ต้องเริ่มจากใบนี้ก่อน อาร์ตน่ารักและเป็นใบที่คนซื้อให้เป็นของขวัญกันเยอะ ราคาสามพัน"
  },
  "PKMN-TCGCPMDEBBJ": {
-  "chase": "CHASE: Mega Gengar ex SAR 240/193 (ใบท็อป) และ MUR ปั๊มทอง · ตามด้วย Mega Dragonite ex SAR 246, N's Zoroark ex SAR 242, Pikachu ex SAR 234 · High Class Pack การันตี ex ทุกซอง 10 ใบ/ซอง"
+  "chase": "CHASE: Mega Gengar ex SAR 240/193 (ใบท็อป) และ MUR ปั๊มทอง · ตามด้วย Mega Dragonite ex SAR 246, N's Zoroark ex SAR 242, Pikachu ex SAR 234 · High Class Pack การันตี ex ทุกซอง 10 ใบ/ซอง",
+  "chaseCards": [
+   {
+    "name": "Mega Gengar ex SAR [M2a 240/193]",
+    "img": "https://img.sasom.co.th/m2a-240-193-jp-m2a-240-7a3e0-pokemon-mega-gengar-ex-sar-m2a-240-193-mega-evolution-mega-dream-ex-jp.jpg",
+    "mkt": 17345
+   },
+   {
+    "name": "Mega Dragonite ex MUR [M2a 250/193]",
+    "img": "https://img.sasom.co.th/m2a-250-193-jp-m2a-250-7a3e0-pokemon-mega-dragonite-ex-mur-m2a-250-193-mega-evolution-mega-dream-ex-jp.jpg",
+    "mkt": 15316
+   },
+   {
+    "name": "Pikachu ex SAR [M2a 234/193]",
+    "img": "https://img.sasom.co.th/m2a-234-193-jp-m2a-234-7a3e0-pokemon-pikachu-ex-sar-m2a-234-193-mega-evolution-mega-dream-ex-jp.jpg",
+    "mkt": 10524
+   }
+  ]
  },
  "SV8A-209-187-JP-SV8A-209-7A3E0": {
   "note": "แซนเดอร์ส ex SAR จาก Terastal Festival ร่างไฟฟ้าของอีวุย ขนแหลมสีเหลืองที่เป็นเอกลักษณ์ หนึ่งในสามร่างดั้งเดิมที่คนรุ่นเก่าผูกพันที่สุด ราคาสามพันสาม"
@@ -328,5 +573,24 @@
  },
  "SV8A-218-187-JP-SV8A-218-7A3E0": {
   "note": "โรริ่งมูน ex SAR โปเกมอนสายโบราณที่ดีไซน์เท่มาก เป็น chase รองของ Terastal Festival คนที่ไม่ได้เก็บอีวุยมักจะมาลงที่ใบนี้แทน ราคาสองพันหก"
+ },
+ "POKEMON-645-PKMN-TCG-M5": {
+  "chaseCards": [
+   {
+    "name": "Mega Darkrai ex MUR [M5 118/081]",
+    "img": "https://img.sasom.co.th/m5-118-081-jp-m5-118-7a3e0-pokemon-mega-darkrai-ex-mur-m5-118-081-mega-evolution-abyss-eye-jp.jpg",
+    "mkt": 19010
+   },
+   {
+    "name": "Mega Darkrai ex SAR [M5 114/081]",
+    "img": "https://img.sasom.co.th/m5-114-081-jp-m5-114-7a3e0-pokemon-mega-darkrai-ex-sar-m5-114-081-mega-evolution-abyss-eye-jp.jpg",
+    "mkt": 9590
+   },
+   {
+    "name": "Morpeko ex SAR [M5 115/081]",
+    "img": "https://img.sasom.co.th/m5-115-081-jp-m5-115-7a3e0-pokemon-morpeko-ex-sar-m5-115-081-mega-evolution-abyss-eye-jp.jpg",
+    "mkt": 4145
+   }
+  ]
  }
 }
