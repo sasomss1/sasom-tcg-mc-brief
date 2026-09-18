@@ -657,47 +657,38 @@ stage.addEventListener('touchcancel',endDrag,{passive:true});
 // ปัดสองนิ้วบนแทร็กแพด — macOS ส่งมาเป็น wheel แนวนอน (deltaX)
 // ผูกไว้ที่ทั้งหน้า ไม่ใช่เฉพาะกรอบสไลด์ จะได้ไม่ต้องเอาเมาส์ไปจ่อหรือคลิกก่อน
 //
-// ปัญหาคือ macOS ยิง event โมเมนตัมต่อเนื่องอีกยาวหลังยกนิ้ว ถ้ารีเซ็ตตัวจับเวลา
-// ทุกครั้งที่มี event เข้ามา มันจะติดล็อกยาวจนกว่าโมเมนตัมจะหมด ปัดรัวๆ เลยเหมือนค้าง
-// วิธีที่ใช้: ดูจากขนาดแรงแทนเวลา โมเมนตัมมีแต่อ่อนลงเรื่อยๆ ไม่มีวันแรงขึ้น
-// ฉะนั้นจะปลดล็อกก็ต่อเมื่อแรงตกจนนิ่ง หรือมีแรงใหม่ที่ดันขึ้นกว่าตอนเปลี่ยนสไลด์ครั้งก่อน
-var wheelAcc=0, wheelArmed=true, wheelPeak=0, lastEvt=0, lastFire=0, lastDir=0;
+// กติกาเดียว: หนึ่งท่า = หนึ่งสไลด์
+// นับว่า "จบท่า" เมื่อไม่มี event เข้ามาเลยติดกัน 90ms
+// ปัดทีนึง macOS จะยิงหางโมเมนตัมต่อเนื่องไม่ขาดสาย (ห่างกันไม่ถึง 20ms)
+// ทั้งชุดจึงถูกนับเป็นท่าเดียว ส่วนการปัดครั้งใหม่คนจะยกนิ้วก่อน มีช่องว่างเกิน 90ms เสมอ
+// ยกเว้นทางเดียวคือปัดกลับทิศแรงๆ ระหว่างหางเก่ายังอยู่ อันนั้นรับทันที
+var wheelAcc=0, wheelLocked=false, wheelIdle=null, lastFire=0, lastDir=0;
+
+function wheelUnlock(){ wheelLocked=false; wheelAcc=0; lastDir=0; }
+
 window.addEventListener('wheel',function(e){
   if(Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // เลื่อนขึ้นลง ปล่อยให้หน้าสกรอลตามปกติ
   var t=e.target;
   if(t && t.closest && t.closest('textarea,input,.track')) return;
   e.preventDefault();
 
-  var now=Date.now(), a=Math.abs(e.deltaX);
+  var now=Date.now(), a=Math.abs(e.deltaX), dir=e.deltaX>0?1:-1;
 
-  if(now-lastEvt > 70){ wheelAcc=0; wheelArmed=true; wheelPeak=0; lastDir=0; }   // เว้นช่วง = เริ่มท่าใหม่
-  lastEvt=now;
+  // นับถอยหลังใหม่ทุก event ที่เข้ามา เงียบครบ 90ms เมื่อไหร่ถือว่าจบท่า
+  clearTimeout(wheelIdle);
+  wheelIdle=setTimeout(wheelUnlock, 90);
 
-  // หางโมเมนตัมอ่อนลงได้ แต่ไม่มีวันกลับทิศ ถ้าทิศเปลี่ยน = คนปัดกลับจริง
-  // แต่ต้องแรงพอและเว้นจากครั้งก่อนด้วย เพราะช่วงหางมันสั่นสลับทิศทีละนิดได้
-  // (ของเดิมรับทุกการสลับทิศ เลยโดนหางสั่นปลดล็อกแล้วเลื่อนรวดเดียวหลายสไลด์)
-  var dir = e.deltaX>0 ? 1 : -1;
-  if(lastDir && dir!==lastDir && a >= 8 && now-lastFire > 90){
-    wheelAcc=0; wheelArmed=true; wheelPeak=0;
-  }
-  if(a >= 3) lastDir=dir;
-
-  if(!wheelArmed){
-    // โมเมนตัมมีแต่อ่อนลง จะนับเป็นการปัดครั้งใหม่ก็ต่อเมื่อแรงตกจนนิ่งแล้ว
-    // หรือมีแรงดันขึ้นแรงกว่ายอดเดิมชัดเจน และเว้นจากครั้งก่อนพอสมควร
-    // ยอดแรงค่อยๆ ลดตามเวลา ท่าที่แรงมากเมื่อครู่จะได้ไม่ไปบล็อกท่าใหม่ที่เบากว่า
-    wheelPeak = Math.max(a, wheelPeak*0.9);
-    if(a < 5 || (a > wheelPeak*1.25 && now-lastFire > 120)) { wheelArmed=true; wheelAcc=0; wheelPeak=a; }
+  if(wheelLocked){
+    // ปัดสวนทางแรงๆ ระหว่างหางเก่ายังไม่หมด = ตั้งใจย้อนกลับ รับเลย
+    if(lastDir && dir!==lastDir && a>=20 && now-lastFire>100){ wheelAcc=0; }
     else return;
   }
-  if(a > wheelPeak) wheelPeak=a;
 
   wheelAcc += e.deltaX;
   if(a < 18 && Math.abs(wheelAcc) < 14) return;
-  if(now-lastFire < 150) return;                          // กันยิงซ้ำในท่าเดียว
 
   go(wheelAcc>0 ? 1 : -1);      // ปัดซ้าย (นิ้วไปทางซ้าย) = ไปสไลด์ถัดไป
-  lastFire=now; wheelAcc=0; wheelArmed=false;
+  lastFire=now; lastDir=dir; wheelAcc=0; wheelLocked=true;
 },{passive:false});
 
 // ลากด้วยเมาส์บนเดสก์ท็อป — ใช้ Pointer Events + setPointerCapture
