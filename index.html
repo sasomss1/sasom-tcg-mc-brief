@@ -38,7 +38,9 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter','Noto S
 .pf .dot.ON{background:#6B5900}
 .pf.on .dot{background:var(--accent-text)}
 .stage{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;min-height:430px;display:flex;flex-direction:column;justify-content:center;touch-action:pan-y;overflow:hidden;position:relative}
-.stage.dragging{cursor:grabbing}
+.stage{cursor:grab}
+.stage.dragging{cursor:grabbing;user-select:none}
+.stage.dragging *{cursor:grabbing}
 .stage .inner{will-change:transform}
 .stage .inner.snap{transition:transform .22s cubic-bezier(.4,0,.2,1),opacity .22s ease}
 @keyframes inFromRight{from{transform:translateX(34px);opacity:0}to{transform:none;opacity:1}}
@@ -525,6 +527,35 @@ function endDrag(){
 }
 stage.addEventListener('touchend',endDrag,{passive:true});
 stage.addEventListener('touchcancel',endDrag,{passive:true});
+
+// ลากด้วยเมาส์บนเดสก์ท็อป ใช้ตรรกะเดียวกับนิ้ว
+var mDown=false;
+stage.addEventListener('mousedown',function(e){
+  if(e.button!==0) return;
+  if(e.target.closest('textarea,input,button,a')) return;
+  if(window.getSelection && String(window.getSelection())) return;   // กำลังลากเลือกข้อความอยู่
+  mDown=true; sx=e.clientX; sy=e.clientY; dxNow=0; axis=null;
+  stage.classList.add('dragging');
+  if(inner) inner.classList.remove('snap');
+});
+window.addEventListener('mousemove',function(e){
+  if(!mDown||sx===null||!inner) return;
+  var dx=e.clientX-sx, dy=e.clientY-sy;
+  if(axis===null){
+    if(Math.abs(dx)<6 && Math.abs(dy)<6) return;
+    axis = Math.abs(dx)>Math.abs(dy) ? 'x' : 'y';
+  }
+  if(axis==='y'){ mDown=false; sx=null; stage.classList.remove('dragging'); return; }
+  e.preventDefault();
+  var edge=(dx>0 && idx===0)||(dx<0 && idx===slides.length-1);
+  dxNow = edge ? dx*0.25 : dx;
+  inner.style.transform='translateX('+dxNow+'px)';
+  inner.style.opacity = String(Math.max(0.45, 1-Math.abs(dxNow)/(W()*1.4)));
+});
+window.addEventListener('mouseup',function(){
+  if(!mDown) return;
+  mDown=false; stage.classList.remove('dragging'); endDrag();
+});
 document.getElementById('themeToggle').addEventListener('click',function(){
   var d=document.documentElement.getAttribute('data-theme')==='dark';
   document.documentElement.setAttribute('data-theme',d?'light':'dark');
