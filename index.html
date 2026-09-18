@@ -69,6 +69,11 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter','Noto S
 .talk{font-size:17px;line-height:1.75;margin-top:18px;padding-left:14px;border-left:3px solid var(--accent)}
 .chase{font-size:16px;line-height:1.7;margin-top:16px;padding:14px 16px;background:var(--line-soft);border-radius:12px}
 .chase b{font-weight:600;letter-spacing:.09em;font-size:10px;color:var(--sub)}
+.chasepics{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.cpic{width:104px}
+.cpic img{width:104px;height:140px;object-fit:contain;border-radius:8px;background:var(--line-soft);cursor:zoom-in;display:block}
+.cpic .nm{font-size:11px;line-height:1.35;margin-top:6px;color:var(--text)}
+.cpic .pr{font-size:11px;font-weight:600;color:var(--sub);font-variant-numeric:tabular-nums;margin-top:2px}
 .cover .badge{font-size:10px;font-weight:600;letter-spacing:.06em;padding:4px 10px;border-radius:999px;display:inline-block;margin-bottom:14px}
 .badge.NEW{background:#EAF7EA;color:#2E7D32}.badge.ON{background:#FFF6DC;color:#6B5900}
 .cover .big{font-size:52px;font-weight:700;letter-spacing:-.025em;line-height:1.05}
@@ -264,6 +269,16 @@ function gradeHtml(c){
   var sealed=/Booster|Trainer|ETB/i.test(c.cond)?' sealed':'';
   return '<span class="grade'+sealed+'">'+esc(c.cond)+'</span>';
 }
+// รูปใบที่คนไล่ล่าในกล่องนั้น ดึงจาก CDN เดียวกับรูปการ์ดปกติ
+function chasePics(n){
+  if(!n.chaseCards || !n.chaseCards.length) return '';
+  return '<div class="chasepics">'+n.chaseCards.map(function(c){
+    return '<div class="cpic"><img src="'+esc(c.img)+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\'none\'">'+
+      '<div class="nm">'+esc(c.name)+'</div>'+
+      (c.mkt?'<div class="pr">'+money(c.mkt)+' THB</div>':'')+'</div>';
+  }).join('')+'</div>';
+}
+
 function priceBlock(c){
   if(c.mkt) return '<div class="plabel">Market price</div><div class="price">'+money(c.mkt)+'<small>THB</small></div>';
   if(c.sheet) return '<div class="plabel">Sheet price</div><div class="price">'+money(c.sheet)+'<small>THB</small></div>';
@@ -646,7 +661,7 @@ stage.addEventListener('touchcancel',endDrag,{passive:true});
 // ทุกครั้งที่มี event เข้ามา มันจะติดล็อกยาวจนกว่าโมเมนตัมจะหมด ปัดรัวๆ เลยเหมือนค้าง
 // วิธีที่ใช้: ดูจากขนาดแรงแทนเวลา โมเมนตัมมีแต่อ่อนลงเรื่อยๆ ไม่มีวันแรงขึ้น
 // ฉะนั้นจะปลดล็อกก็ต่อเมื่อแรงตกจนนิ่ง หรือมีแรงใหม่ที่ดันขึ้นกว่าตอนเปลี่ยนสไลด์ครั้งก่อน
-var wheelAcc=0, wheelArmed=true, wheelPeak=0, lastEvt=0, lastFire=0;
+var wheelAcc=0, wheelArmed=true, wheelPeak=0, lastEvt=0, lastFire=0, lastDir=0;
 window.addEventListener('wheel',function(e){
   if(Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // เลื่อนขึ้นลง ปล่อยให้หน้าสกรอลตามปกติ
   var t=e.target;
@@ -655,8 +670,17 @@ window.addEventListener('wheel',function(e){
 
   var now=Date.now(), a=Math.abs(e.deltaX);
 
-  if(now-lastEvt > 70){ wheelAcc=0; wheelArmed=true; wheelPeak=0; }    // เว้นช่วง = เริ่มท่าใหม่
+  if(now-lastEvt > 70){ wheelAcc=0; wheelArmed=true; wheelPeak=0; lastDir=0; }   // เว้นช่วง = เริ่มท่าใหม่
   lastEvt=now;
+
+  // หางโมเมนตัมอ่อนลงได้ แต่ไม่มีวันกลับทิศ ถ้าทิศเปลี่ยน = คนปัดกลับจริง
+  // แต่ต้องแรงพอและเว้นจากครั้งก่อนด้วย เพราะช่วงหางมันสั่นสลับทิศทีละนิดได้
+  // (ของเดิมรับทุกการสลับทิศ เลยโดนหางสั่นปลดล็อกแล้วเลื่อนรวดเดียวหลายสไลด์)
+  var dir = e.deltaX>0 ? 1 : -1;
+  if(lastDir && dir!==lastDir && a >= 8 && now-lastFire > 90){
+    wheelAcc=0; wheelArmed=true; wheelPeak=0;
+  }
+  if(a >= 3) lastDir=dir;
 
   if(!wheelArmed){
     // โมเมนตัมมีแต่อ่อนลง จะนับเป็นการปัดครั้งใหม่ก็ต่อเมื่อแรงตกจนนิ่งแล้ว
@@ -728,7 +752,7 @@ document.getElementById('themeToggle').addEventListener('click',function(){
 });
 var lb=document.getElementById('lb'), lbi=document.getElementById('lbi');
 document.addEventListener('click',function(e){
-  if(e.target.tagName==='IMG'&&e.target.closest('.shot')){lbi.src=e.target.src;lb.style.display='flex';}
+  if(e.target.tagName==='IMG'&&(e.target.closest('.shot')||e.target.closest('.cpic'))){lbi.src=e.target.src;lb.style.display='flex';}
   else if(e.target.closest('#lb')){lb.style.display='none';}
 });
 
