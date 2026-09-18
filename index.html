@@ -37,7 +37,14 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter','Noto S
 .dot{width:6px;height:6px;border-radius:50%;background:#2E7D32}
 .pf .dot.ON{background:#6B5900}
 .pf.on .dot{background:var(--accent-text)}
-.stage{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;min-height:430px;display:flex;flex-direction:column;justify-content:center}
+.stage{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;min-height:430px;display:flex;flex-direction:column;justify-content:center;touch-action:pan-y;overflow:hidden;position:relative}
+.stage.dragging{cursor:grabbing}
+.stage .inner{will-change:transform}
+.stage .inner.snap{transition:transform .22s cubic-bezier(.4,0,.2,1),opacity .22s ease}
+@keyframes inFromRight{from{transform:translateX(34px);opacity:0}to{transform:none;opacity:1}}
+@keyframes inFromLeft{from{transform:translateX(-34px);opacity:0}to{transform:none;opacity:1}}
+.stage .inner.enter-next{animation:inFromRight .26s cubic-bezier(.4,0,.2,1)}
+.stage .inner.enter-prev{animation:inFromLeft .26s cubic-bezier(.4,0,.2,1)}
 .slide{display:grid;grid-template-columns:260px 1fr;gap:30px;align-items:start}
 @media(max-width:760px){.slide{grid-template-columns:1fr;gap:18px}.stage{padding:20px;min-height:0}}
 .shot{width:100%;aspect-ratio:3/4;border-radius:14px;background:var(--line-soft);display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -72,21 +79,15 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter','Noto S
 .viewseg button{border:0;background:transparent;color:var(--sub);font-family:inherit;font-size:12px;font-weight:500;padding:6px 15px;border-radius:999px;cursor:pointer;white-space:nowrap}
 .viewseg button.active{background:var(--dark);color:var(--bg);font-weight:600}
 :root[data-theme="dark"] .viewseg button.active{background:var(--accent);color:var(--accent-text)}
-.rules{display:block;margin:12px auto 0;border:1px solid var(--line);background:var(--card);color:var(--text);font-family:inherit;font-size:12px;font-weight:600;padding:9px 20px;border-radius:999px;cursor:pointer}
-.rules:hover{background:var(--line-soft)}
-#modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:60;padding:20px}
-#modal.open{display:flex}
-.sheetbox{background:var(--card);border:1px solid var(--line);border-radius:20px;max-width:760px;width:100%;max-height:86vh;overflow-y:auto;padding:26px;-webkit-overflow-scrolling:touch}
-.sheetbox h3{font-size:20px;font-weight:600;margin:0 0 4px;letter-spacing:-.01em}
-.sheetbox .sub{color:var(--sub);font-size:13px;margin-bottom:20px}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media(max-width:640px){.cols{grid-template-columns:1fr}}
-.col h4{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-.col.ok h4{color:#2E7D32}
-.col.no h4{color:#C0392B}
-.col ul{margin:0;padding-left:18px}
-.col li{font-size:14.5px;line-height:1.65;margin-bottom:9px}
-.closebar{display:flex;justify-content:flex-end;margin-top:20px}
+.quickrules{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+@media(max-width:640px){.quickrules{grid-template-columns:1fr}}
+.qr{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.qr h4{font-size:10px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin:0 0 10px}
+.qr.ok h4{color:#2E7D32}
+.qr.no h4{color:#C0392B}
+.qr ul{margin:0;padding-left:16px}
+.qr li{font-size:13.5px;line-height:1.6;margin-bottom:6px}
+.qr li:last-child{margin-bottom:0}
 @media(max-width:640px){
   .wrap{padding:0 14px calc(28px + env(safe-area-inset-bottom))}
   .topbar{padding:12px 0 10px;gap:10px}
@@ -152,33 +153,30 @@ input.ed{width:100%;border:1px solid var(--line);background:var(--bg);color:var(
   <button class="btn" id="next">Next</button>
 </div>
 <div class="hint">Use arrow keys or swipe to navigate</div>
-<button class="rules" id="rulesBtn">Do &amp; Don't — quick rules</button>
-</div>
-<div id="modal"><div class="sheetbox">
-  <h3>Do &amp; Don't</h3>
-  <div class="sub">สรุปกฎสั้นๆ สำหรับ MC ระหว่างไลฟ์</div>
-  <div class="cols">
-    <div class="col ok"><h4>ทำได้ / ต้องทำ</h4><ul>
-      <li>ย้ำได้เต็มปากว่าการันตีแท้ 100% ถ้าเป็นของปลอมคืนเงิน 2 เท่า</li>
-      <li>อธิบายว่าซองถูกจัดและซีลลายน้ำมาจากที่อื่นก่อนแล้ว SASOM มีหน้าที่แค่แปะเลขหลังซอง</li>
-      <li>ลูกค้าถามว่าเหลือ Hit อะไร ให้ชี้ไปหน้า board detail</li>
-      <li>ลูกค้าถามว่าเหลือกี่จุ่ม ให้เช็คในขั้นตอนสั่งซื้อ และบอกได้ว่าเลขที่ sold out กลับมาได้เพราะระบบจองไว้ 3 นาที</li>
-      <li>กดโมเมนต์ทุกครั้งที่ Hit 01/02/03 ออก เพื่อเก็บไปตัดคลิปโปรโมท</li>
-      <li>ใช้คำให้กำลังใจแทน เช่น "Hit ยังอยู่นะ"</li>
-      <li>จอดำหรือภาพไม่ขึ้น ให้แจ้งลูกค้าก่อนว่าขอลงไลฟ์แล้วขึ้นใหม่ ใช้เวลาราว 2 นาที</li>
-      <li>เสียงไม่ออก ให้พิมพ์บอกและปักหมุดก่อนลงทุกครั้ง</li>
-    </ul></div>
-    <div class="col no"><h4>ห้าม</h4><ul>
-      <li>ห้ามพูดคำว่า "เกลือ" หรือ "เหนียว"</li>
-      <li>ห้ามกดโมเมนต์ตอนที่ออกเป็นเกลือ</li>
-      <li>ห้ามบอกใบ้หรือการันตีว่าซองไหนมีอะไร เพราะไม่มีใครรู้จนกว่าจะแกะ</li>
-      <li>ห้ามหายไปเฉยๆ ตอนจอดำ ต้องแจ้งลูกค้าก่อนทุกครั้ง</li>
-      <li>ห้ามลงไลฟ์ตอนเสียงไม่ออกโดยไม่พิมพ์แจ้งและปักหมุด</li>
-      <li>ห้ามรับปากเรื่องที่นอกเหนือจากที่ระบุไว้ในบอร์ด</li>
-    </ul></div>
+<div class="quickrules">
+  <div class="qr ok">
+    <h4>ทำได้ / ต้องทำ</h4>
+    <ul>
+      <li>ย้ำได้ว่าแท้ 100% ปลอมคืนเงิน 2 เท่า</li>
+      <li>ซองซีลมาจากที่อื่น SASOM แค่แปะเลข</li>
+      <li>ถามว่าเหลือ Hit อะไร ชี้ไปหน้า board detail</li>
+      <li>เลขที่ sold out กลับมาได้ ระบบจองไว้ 3 นาที</li>
+      <li>Hit 01/02/03 ออก กดโมเมนต์ทุกครั้ง</li>
+      <li>ใช้คำให้กำลังใจ เช่น "Hit ยังอยู่นะ"</li>
+    </ul>
   </div>
-  <div class="closebar"><button class="btn" id="modalClose">Close</button></div>
-</div></div>
+  <div class="qr no">
+    <h4>ห้าม</h4>
+    <ul>
+      <li>ห้ามพูดคำว่า "เกลือ" หรือ "เหนียว"</li>
+      <li>ห้ามกดโมเมนต์ตอนออกเป็นเกลือ</li>
+      <li>ห้ามบอกใบ้ว่าซองไหนมีอะไร</li>
+      <li>ห้ามหายไปเฉยๆ ตอนจอดำ ต้องแจ้งก่อน</li>
+      <li>เสียงไม่ออก ห้ามลงไลฟ์ก่อนพิมพ์ปักหมุด</li>
+      <li>ห้ามรับปากนอกเหนือจากที่ระบุในบอร์ด</li>
+    </ul>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 <div id="lb"><img id="lbi" alt=""></div>
 
@@ -191,6 +189,7 @@ var SYNC_URL = "https://script.google.com/macros/s/AKfycbxxLrFpMZOvtgLxVPcGbGKXh
 var ALL = [], NOTES = {}, BASE_NOTES = {}, LOCAL = {}, view = [], cur = 0, idx = 0,
     slides = [], statusFilter = "ALL", q = "", editing = null, mode = "boards";
 var LS_KEY = 'mcbrief.notes.v1';
+var inner=null;
 var pills=document.getElementById('pills'), stage=document.getElementById('stage'),
     track=document.getElementById('track'), counter=document.getElementById('counter'),
     metaEl=document.getElementById('meta'), toastEl=document.getElementById('toast');
@@ -337,11 +336,13 @@ function scriptBody(s){
       (LOCAL[key]?'<span class="dirty">Not synced to Sheet</span>':'')+'</div>';
 }
 
-function render(){
+function render(dir){
   var s=slides[idx];
-  stage.innerHTML = s.card
+  var body = s.card
     ? '<div class="slide"><div class="shot">'+imgHtml(s.card.img)+'</div><div>'+s.head+cardBody(s.card)+'</div></div>'
     : (s.script ? '<div>'+scriptBody(s.script)+'</div>' : s.html);
+  stage.innerHTML = '<div class="inner'+(dir===1?' enter-next':(dir===-1?' enter-prev':''))+'">'+body+'</div>';
+  inner = stage.firstChild;
   wireEditors();
   counter.textContent=(idx+1)+' / '+slides.length;
   track.innerHTML=slides.map(function(s,i){
@@ -356,7 +357,7 @@ function render(){
   document.getElementById('prev').disabled = idx===0;
   document.getElementById('next').disabled = idx===slides.length-1;
 }
-function go(d){var n=idx+d; if(n<0||n>=slides.length) return; idx=n; render();}
+function go(d){var n=idx+d; if(n<0||n>=slides.length) return false; idx=n; render(d>0?1:-1); return true;}
 
 // พิมพ์เลขซองแล้วกระโดดไปสไลด์นั้น รองรับทั้งเลขเดี่ยวและช่วงเลข เช่น 13–19
 function jumpTo(num){
@@ -458,12 +459,6 @@ document.getElementById('viewSeg').addEventListener('click',function(e){
   b.classList.add('active');
   renderPills(); rebuild();
 });
-var modal=document.getElementById('modal');
-document.getElementById('rulesBtn').onclick=function(){ modal.classList.add('open'); };
-document.getElementById('modalClose').onclick=function(){ modal.classList.remove('open'); };
-modal.addEventListener('click',function(e){ if(e.target===modal) modal.classList.remove('open'); });
-document.addEventListener('keydown',function(e){ if(e.key==='Escape') modal.classList.remove('open'); });
-
 document.getElementById('sync').onclick=function(){ doSync(false); };
 document.getElementById('prev').onclick=function(){go(-1);};
 document.getElementById('next').onclick=function(){go(1);};
@@ -491,12 +486,45 @@ document.addEventListener('keydown',function(e){
   if(e.key==='ArrowRight'||e.key===' '){go(1);e.preventDefault();}
   if(e.key==='ArrowLeft'){go(-1);e.preventDefault();}
 });
-var sx=null;
-stage.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
-stage.addEventListener('touchend',function(e){
-  if(sx===null) return; var dx=e.changedTouches[0].clientX-sx; sx=null;
-  if(Math.abs(dx)>50) go(dx<0?1:-1);
+// ปัดนิ้วเปลี่ยนสไลด์ — ลากแล้วสไลด์ขยับตามนิ้วจริง ปล่อยแล้วค่อยตัดสินว่าจะเปลี่ยนหรือเด้งกลับ
+var sx=null, sy=null, dxNow=0, axis=null;
+var W=function(){ return stage.offsetWidth || 320; };
+
+stage.addEventListener('touchstart',function(e){
+  if(e.touches.length>1) return;
+  if(e.target.closest('textarea,input,button,a')) return;   // กำลังแก้ข้อความอยู่ อย่าไปปัด
+  sx=e.touches[0].clientX; sy=e.touches[0].clientY; dxNow=0; axis=null;
+  if(inner) inner.classList.remove('snap');
 },{passive:true});
+
+stage.addEventListener('touchmove',function(e){
+  if(sx===null||!inner) return;
+  var dx=e.touches[0].clientX-sx, dy=e.touches[0].clientY-sy;
+  if(axis===null){
+    if(Math.abs(dx)<6 && Math.abs(dy)<6) return;
+    axis = Math.abs(dx)>Math.abs(dy) ? 'x' : 'y';
+  }
+  if(axis==='y'){ sx=null; return; }                        // เลื่อนหน้าขึ้นลงตามปกติ
+  e.preventDefault();                                        // กันหน้าเลื่อนไปมาระหว่างปัด
+  // ถึงหัวหรือท้ายแล้วให้หนืด ๆ ไม่ให้ลากหลุดออกไป
+  var edge = (dx>0 && idx===0) || (dx<0 && idx===slides.length-1);
+  dxNow = edge ? dx*0.25 : dx;
+  inner.style.transform='translateX('+dxNow+'px)';
+  inner.style.opacity = String(Math.max(0.45, 1-Math.abs(dxNow)/(W()*1.4)));
+},{passive:false});
+
+function endDrag(){
+  if(sx===null||!inner){ sx=null; return; }
+  var moved=dxNow; sx=null; axis=null;
+  var threshold = Math.min(90, W()*0.18);
+  inner.classList.add('snap');
+  inner.style.transform='';
+  inner.style.opacity='';
+  if(Math.abs(moved)>threshold) go(moved<0?1:-1);
+  dxNow=0;
+}
+stage.addEventListener('touchend',endDrag,{passive:true});
+stage.addEventListener('touchcancel',endDrag,{passive:true});
 document.getElementById('themeToggle').addEventListener('click',function(){
   var d=document.documentElement.getAttribute('data-theme')==='dark';
   document.documentElement.setAttribute('data-theme',d?'light':'dark');
