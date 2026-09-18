@@ -42,11 +42,11 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter','Noto S
 .stage.dragging{cursor:grabbing;user-select:none}
 .stage.dragging *{cursor:grabbing}
 .stage .inner{will-change:transform}
-.stage .inner.snap{transition:transform .22s cubic-bezier(.4,0,.2,1),opacity .22s ease}
-@keyframes inFromRight{from{transform:translateX(34px);opacity:0}to{transform:none;opacity:1}}
-@keyframes inFromLeft{from{transform:translateX(-34px);opacity:0}to{transform:none;opacity:1}}
-.stage .inner.enter-next{animation:inFromRight .26s cubic-bezier(.4,0,.2,1)}
-.stage .inner.enter-prev{animation:inFromLeft .26s cubic-bezier(.4,0,.2,1)}
+.stage .inner.snap{transition:transform .16s cubic-bezier(.4,0,.2,1),opacity .16s ease}
+@keyframes inFromRight{from{transform:translateX(24px);opacity:0}to{transform:none;opacity:1}}
+@keyframes inFromLeft{from{transform:translateX(-24px);opacity:0}to{transform:none;opacity:1}}
+.stage .inner.enter-next{animation:inFromRight .15s cubic-bezier(.4,0,.2,1)}
+.stage .inner.enter-prev{animation:inFromLeft .15s cubic-bezier(.4,0,.2,1)}
 .slide{display:grid;grid-template-columns:260px 1fr;gap:30px;align-items:start}
 @media(max-width:760px){.slide{grid-template-columns:1fr;gap:18px}.stage{padding:20px;min-height:0}}
 .shot{width:100%;aspect-ratio:3/4;border-radius:14px;background:var(--line-soft);display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -232,15 +232,28 @@ function loadLocal(){
 function saveLocal(){
   try{ localStorage.setItem(LS_KEY, JSON.stringify(LOCAL)); }catch(e){}
 }
-// ลำดับความสำคัญ: notes.json ในรีโป < บทพูดจากชีต < ที่แก้ค้างไว้ในเครื่อง
+// ลำดับความสำคัญ: notes.json ในรีโป < บทพูดจากชีต < ที่แก้ไว้ในเครื่อง
+// ของในเครื่องถูกเก็บไว้ตลอด ไม่ลบทิ้งแม้ส่งขึ้นชีตสำเร็จ กันข้อความหายถ้าชีตล่มตอนเปิดครั้งหน้า
 function mergeNotes(serverNotes){
+  var syncedLocal={}, draftLocal={};
+  Object.keys(LOCAL).forEach(function(k){
+    (LOCAL[k].synced===true ? syncedLocal : draftLocal)[k]=LOCAL[k];
+  });
+  // ชีตคือของกลาง ต้องชนะสำเนาที่เราเคยส่งขึ้นไปแล้ว คนอื่นแก้ทีหลังเราจะได้เห็นของเขา
+  // สำเนาที่ซิงก์แล้วเหลือไว้เป็นตัวสำรองเฉยๆ เผื่อดึงชีตไม่ได้
+  // ส่วนที่ยังไม่ได้ส่งขึ้นชีต ถือเป็นฉบับร่างของเรา ทับทุกอย่าง
   NOTES = {};
-  [BASE_NOTES, serverNotes||{}, LOCAL].forEach(function(src){
+  [BASE_NOTES, syncedLocal, serverNotes||{}, draftLocal].forEach(function(src){
     Object.keys(src||{}).forEach(function(k){
-      NOTES[k] = Object.assign({}, NOTES[k]||{}, src[k]);
+      var e=src[k]||{}, clean={};
+      if(e.note)  clean.note=e.note;
+      if(e.chase) clean.chase=e.chase;
+      NOTES[k] = Object.assign({}, NOTES[k]||{}, clean);
     });
   });
 }
+function isUnsynced(key){ return !!(LOCAL[key] && LOCAL[key].synced !== true); }
+function pendingCount(){ return Object.keys(LOCAL).filter(isUnsynced).length; }
 
 function imgHtml(src){
   if(!src) return '<span>No photo</span>';
@@ -327,7 +340,7 @@ function cardBody(c){
     (n.chase?'<div class="chase">'+esc(n.chase).replace('CHASE:','<b>CHASE IN BOX</b><br>')+'</div>':'')+
     '<div class="editbar"><button class="tiny" data-edit="'+esc(key)+'">'+
       (n.note||n.chase?'Edit talk track':'+ Add talk track')+'</button>'+
-      (LOCAL[key]?'<span class="dirty">Not synced to Sheet</span>':'')+'</div>';
+      (isUnsynced(key)?'<span class="dirty">Not synced to Sheet</span>':'')+'</div>';
 }
 
 function scriptBody(s){
@@ -345,7 +358,7 @@ function scriptBody(s){
   }
   return '<div class="kicker">'+esc(s[0])+'</div><div class="script">'+esc(text)+'</div>'+
     '<div class="editbar"><button class="tiny" data-edit="'+esc(key)+'">Edit text</button>'+
-      (LOCAL[key]?'<span class="dirty">Not synced to Sheet</span>':'')+'</div>';
+      (isUnsynced(key)?'<span class="dirty">Not synced to Sheet</span>':'')+'</div>';
 }
 
 function render(dir){
@@ -390,7 +403,7 @@ function setData(payload, source){
     return (parseFloat(String(b.price).replace(/,/g,''))||0)-(parseFloat(String(a.price).replace(/,/g,''))||0);
   });
   mergeNotes(payload.notes);
-  var pending=Object.keys(LOCAL).length;
+  var pending=pendingCount();
   metaEl.textContent = ALL.length+' boards · data '+(payload.synced_at||'unknown date')+' · '+source+
     (pending?' · '+pending+' unsynced edit'+(pending>1?'s':''):'');
   applyFilter();
@@ -428,7 +441,9 @@ async function doSync(silent){
 // เซฟบทพูด/กฎ ลงเครื่องก่อนเสมอ แล้วค่อยพยายามส่งขึ้นชีต
 async function saveEntry(key, note, chase, msgEl, btn){
   var entry={}; if(note) entry.note=note; if(chase) entry.chase=chase;
-  NOTES[key]=entry; LOCAL[key]=entry; saveLocal();
+  NOTES[key]=entry;
+  LOCAL[key]=Object.assign({}, entry, {synced:false});
+  saveLocal();
 
   if(!SYNC_URL){ toast('Saved on this device only — SYNC_URL is not set'); return; }
   if(btn) btn.disabled=true;
@@ -441,7 +456,7 @@ async function saveEntry(key, note, chase, msgEl, btn){
     });
     var j=await r.json();
     if(!j.ok) throw new Error(j.error||'unknown error');
-    delete LOCAL[key]; saveLocal();
+    LOCAL[key].synced=true; saveLocal();      // เก็บไว้ในเครื่องต่อ แค่เลิกขึ้นป้าย Not synced
     toast('Saved to Sheet');
   }catch(e){
     toast('Saved locally, but could not reach the Sheet: '+e.message);
@@ -477,7 +492,7 @@ function renderScripts(){
     }
     return '<div class="gcard'+wide+'"><div class="head"><h4>'+esc(label)+'</h4>'+
       (guideEditing===label?'':'<button class="tiny" data-guide="'+esc(label)+'">Edit</button>'+
-        (LOCAL[key]?' <span class="dirty">Not synced</span>':''))+
+        (isUnsynced(key)?' <span class="dirty">Not synced</span>':''))+
       '</div>'+body+'</div>';
   }).join('');
 
@@ -513,7 +528,7 @@ function renderRules(){
     }
     return '<div class="qr '+cls+'"><div class="head"><h4>'+title+'</h4>'+
       (rulesEditing===which?'':'<button class="tiny" data-rule="'+which+'">Edit</button>'+
-        (LOCAL[key]?' <span class="dirty">Not synced</span>':''))+
+        (isUnsynced(key)?' <span class="dirty">Not synced</span>':''))+
       '</div>'+body+'</div>';
   }).join('');
 
@@ -603,47 +618,110 @@ stage.addEventListener('touchmove',function(e){
   inner.style.opacity = String(Math.max(0.45, 1-Math.abs(dxNow)/(W()*1.4)));
 },{passive:false});
 
+// เคลียร์สถานะลากทุกอย่างให้กลับเป็นศูนย์ ไม่ว่าจบยังไง
+function resetDrag(){
+  if(inner){
+    inner.classList.add('snap');
+    inner.style.transform='';
+    inner.style.opacity='';
+  }
+  sx=null; sy=null; dxNow=0; axis=null; mDown=false;
+  stage.classList.remove('dragging');
+}
+
 function endDrag(){
-  if(sx===null||!inner){ sx=null; return; }
-  var moved=dxNow; sx=null; axis=null;
-  var threshold = Math.min(90, W()*0.18);
-  inner.classList.add('snap');
-  inner.style.transform='';
-  inner.style.opacity='';
+  if(sx===null||!inner){ resetDrag(); return; }
+  var moved=dxNow;
+  var threshold = Math.min(60, W()*0.12);
+  resetDrag();
   if(Math.abs(moved)>threshold) go(moved<0?1:-1);
-  dxNow=0;
 }
 stage.addEventListener('touchend',endDrag,{passive:true});
 stage.addEventListener('touchcancel',endDrag,{passive:true});
 
-// ลากด้วยเมาส์บนเดสก์ท็อป ใช้ตรรกะเดียวกับนิ้ว
-var mDown=false;
-stage.addEventListener('mousedown',function(e){
-  if(e.button!==0) return;
+// ปัดสองนิ้วบนแทร็กแพด — macOS ส่งมาเป็น wheel แนวนอน (deltaX)
+// ผูกไว้ที่ทั้งหน้า ไม่ใช่เฉพาะกรอบสไลด์ จะได้ไม่ต้องเอาเมาส์ไปจ่อหรือคลิกก่อน
+//
+// ปัญหาคือ macOS ยิง event โมเมนตัมต่อเนื่องอีกยาวหลังยกนิ้ว ถ้ารีเซ็ตตัวจับเวลา
+// ทุกครั้งที่มี event เข้ามา มันจะติดล็อกยาวจนกว่าโมเมนตัมจะหมด ปัดรัวๆ เลยเหมือนค้าง
+// วิธีที่ใช้: ดูจากขนาดแรงแทนเวลา โมเมนตัมมีแต่อ่อนลงเรื่อยๆ ไม่มีวันแรงขึ้น
+// ฉะนั้นจะปลดล็อกก็ต่อเมื่อแรงตกจนนิ่ง หรือมีแรงใหม่ที่ดันขึ้นกว่าตอนเปลี่ยนสไลด์ครั้งก่อน
+var wheelAcc=0, wheelArmed=true, wheelPeak=0, lastEvt=0, lastFire=0;
+window.addEventListener('wheel',function(e){
+  if(Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // เลื่อนขึ้นลง ปล่อยให้หน้าสกรอลตามปกติ
+  var t=e.target;
+  if(t && t.closest && t.closest('textarea,input,.track')) return;
+  e.preventDefault();
+
+  var now=Date.now(), a=Math.abs(e.deltaX);
+
+  if(now-lastEvt > 70){ wheelAcc=0; wheelArmed=true; wheelPeak=0; }    // เว้นช่วง = เริ่มท่าใหม่
+  lastEvt=now;
+
+  if(!wheelArmed){
+    // โมเมนตัมมีแต่อ่อนลง จะนับเป็นการปัดครั้งใหม่ก็ต่อเมื่อแรงตกจนนิ่งแล้ว
+    // หรือมีแรงดันขึ้นแรงกว่ายอดเดิมชัดเจน และเว้นจากครั้งก่อนพอสมควร
+    // ยอดแรงค่อยๆ ลดตามเวลา ท่าที่แรงมากเมื่อครู่จะได้ไม่ไปบล็อกท่าใหม่ที่เบากว่า
+    wheelPeak = Math.max(a, wheelPeak*0.9);
+    if(a < 5 || (a > wheelPeak*1.25 && now-lastFire > 120)) { wheelArmed=true; wheelAcc=0; wheelPeak=a; }
+    else return;
+  }
+  if(a > wheelPeak) wheelPeak=a;
+
+  wheelAcc += e.deltaX;
+  if(a < 18 && Math.abs(wheelAcc) < 14) return;
+  if(now-lastFire < 150) return;                          // กันยิงซ้ำในท่าเดียว
+
+  go(wheelAcc>0 ? 1 : -1);      // ปัดซ้าย (นิ้วไปทางซ้าย) = ไปสไลด์ถัดไป
+  lastFire=now; wheelAcc=0; wheelArmed=false;
+},{passive:false});
+
+// ลากด้วยเมาส์บนเดสก์ท็อป — ใช้ Pointer Events + setPointerCapture
+// ของเดิมรอ mouseup ธรรมดา ถ้าปล่อยตอนเบราว์เซอร์เริ่ม native drag หรือปล่อยนอกหน้าต่าง
+// จะไม่มี event กลับมา สไลด์เลยค้างเอียงอยู่อย่างนั้น
+var mDown=false, pid=null;
+
+stage.addEventListener('pointerdown',function(e){
+  if(e.pointerType!=='mouse' || e.button!==0) return;
   if(e.target.closest('textarea,input,button,a')) return;
   if(window.getSelection && String(window.getSelection())) return;   // กำลังลากเลือกข้อความอยู่
-  mDown=true; sx=e.clientX; sy=e.clientY; dxNow=0; axis=null;
+  mDown=true; pid=e.pointerId; sx=e.clientX; sy=e.clientY; dxNow=0; axis=null;
   stage.classList.add('dragging');
   if(inner) inner.classList.remove('snap');
+  try{ stage.setPointerCapture(pid); }catch(err){}
 });
-window.addEventListener('mousemove',function(e){
-  if(!mDown||sx===null||!inner) return;
+
+stage.addEventListener('pointermove',function(e){
+  if(!mDown || e.pointerId!==pid || sx===null || !inner) return;
   var dx=e.clientX-sx, dy=e.clientY-sy;
   if(axis===null){
     if(Math.abs(dx)<6 && Math.abs(dy)<6) return;
     axis = Math.abs(dx)>Math.abs(dy) ? 'x' : 'y';
   }
-  if(axis==='y'){ mDown=false; sx=null; stage.classList.remove('dragging'); return; }
+  if(axis==='y'){ resetDrag(); return; }
   e.preventDefault();
   var edge=(dx>0 && idx===0)||(dx<0 && idx===slides.length-1);
   dxNow = edge ? dx*0.25 : dx;
   inner.style.transform='translateX('+dxNow+'px)';
   inner.style.opacity = String(Math.max(0.45, 1-Math.abs(dxNow)/(W()*1.4)));
 });
-window.addEventListener('mouseup',function(){
+
+function finishPointer(e){
   if(!mDown) return;
-  mDown=false; stage.classList.remove('dragging'); endDrag();
-});
+  if(e && e.pointerId!==undefined && e.pointerId!==pid) return;
+  var moved=dxNow;
+  try{ stage.releasePointerCapture(pid); }catch(err){}
+  resetDrag();
+  var threshold=Math.min(60, W()*0.12);
+  if(Math.abs(moved)>threshold) go(moved<0?1:-1);
+}
+stage.addEventListener('pointerup',finishPointer);
+stage.addEventListener('pointercancel',finishPointer);
+stage.addEventListener('lostpointercapture',finishPointer);
+
+// กันเหนียว ถ้าหลุดทุกทางแล้วยังค้าง ให้เคลียร์ทิ้ง
+window.addEventListener('blur',function(){ if(mDown) resetDrag(); });
+document.addEventListener('mouseup',function(){ if(mDown) finishPointer(null); });
 document.getElementById('themeToggle').addEventListener('click',function(){
   var d=document.documentElement.getAttribute('data-theme')==='dark';
   document.documentElement.setAttribute('data-theme',d?'light':'dark');
@@ -655,6 +733,7 @@ document.addEventListener('click',function(e){
 });
 
 loadLocal();
+mergeNotes(null);     // เอาที่แก้ไว้ในเครื่องขึ้นให้เห็นทันที ไม่ต้องรอโหลดข้อมูล
 renderScripts();
 renderRules();
 loadCache().then(function(){
