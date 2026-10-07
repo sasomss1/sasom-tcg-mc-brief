@@ -1,0 +1,275 @@
+{
+ "synced_at": "2026-10-07",
+ "boards": {
+  "board999(10.10)": {
+   "env": "Red",
+   "stk": "White",
+   "id": "DyxtbjLMQWznE9As9v3z",
+   "sys": "Oripa 999 ซองแดง (10.10)"
+  },
+  "board1399(10.10)": {
+   "env": "Black",
+   "stk": "White",
+   "id": "wqBBLVnuyluK6H9Bj9mT",
+   "sys": "Oripa 1,399 ซองดำ (10.10)"
+  },
+  "board2799(10.10)": {
+   "env": "Green",
+   "stk": "White",
+   "id": "TaMBgE6jUiWKa02OJ4hI",
+   "sys": "Oripa 2,799 ซองเขียว (10.10)"
+  },
+  "board999(10.10)(re)": {
+   "env": "Red",
+   "stk": "Green",
+   "id": "bpYg1ccX99mk92uD0aCH",
+   "sys": "Board 999 ซองแดง (10.10)"
+  },
+  "board1099(10.10)(re)": {
+   "env": "Black",
+   "stk": "Blue",
+   "id": "LXUGdcHgW8vOq2fmESCU",
+   "sys": "Oripa 1,099 ซองดำ (10.10)"
+  },
+  "board1300(ad)s": {
+   "env": "Black",
+   "stk": "Yellow",
+   "id": null,
+   "sys": null
+  },
+  "board699(ae)s": {
+   "env": "Green",
+   "stk": "Blue",
+   "id": null,
+   "sys": null
+  },
+  "board999(ad)s": {
+   "env": "Black",
+   "stk": "Green",
+   "id": "BwviB7c1oRTlMovsZ93p",
+   "sys": "Oripa 999 ซองดำ AD [S]"
+  },
+  "board699(ab)": {
+   "env": "Green",
+   "stk": "Yellow",
+   "id": "dLvdnipGVgqlFx34HcbD",
+   "sys": "Oripa 699 ซองเขียว (AB)"
+  },
+  "board999(ag)": {
+   "env": "Red",
+   "stk": "Blue",
+   "id": "hI77rZOYTJsclHzNcoXq",
+   "sys": "Oripa 999 ซองแดง (AG)"
+  },
+  "board1699(ab)": {
+   "env": "Black",
+   "stk": "White",
+   "id": "F2pXrfvcy8VVEY0ny4J3",
+   "sys": "Oripa 1,699 ซองดำ (AB)(KOL)"
+  },
+  "board2199(aa)": {
+   "env": "Black",
+   "stk": "White",
+   "id": "R134OA45uul0j2EmiHZ0",
+   "sys": "Oripa 2,199.- ซองดำ (AA)(MWF)"
+  },
+  "board3499(aa)": {
+   "env": "Red",
+   "stk": "Yellow",
+   "id": "5DcYFr5RB1qavLKmsVYC",
+   "sys": "Oripa 3,499 ซองแดง (AA)(KOL)"
+  },
+  "board1599(aa)s": {
+   "env": "Black",
+   "stk": "Blue",
+   "id": "AAP7nb2G3ra9rDRjJjTq",
+   "sys": "Oripa 1,599 ซองดำ (AA) [S]"
+  },
+  "board4199(ed)s": {
+   "env": "Green",
+   "stk": "Yellow",
+   "id": "tPuDAxKWaFmhOjsv9u9a",
+   "sys": "Oripa 4,199 ซองเขียว ED [S]"
+  },
+  "board1490(aa)s": {
+   "env": "Red",
+   "stk": "White",
+   "id": "uHt5kcYCzRDUKIeWtmpa",
+   "sys": "Oripa 1,490 ซองแดง (AA) [S]"
+  },
+  "board4200(aa)s": {
+   "env": "Red",
+   "stk": "White",
+   "id": "Ao9eZbVXm7upcbLOxZaC",
+   "sys": "Oripa 4,200 (AA) [S]"
+  },
+  "board1290(aa)s": {
+   "env": "Black",
+   "stk": "White",
+   "id": "L8fa0VPgz40B8SxW7TLX",
+   "sys": "Oripa 1,290 (AA) [S]"
+  },
+  "board999(af)": {
+   "env": "Black",
+   "stk": "Yellow",
+   "id": "mHZjjlpTfysAPAkKDsVX",
+   "sys": "Oripa 999 ซองดำ (AF)"
+  },
+  "board899(ag)": {
+   "env": "Green",
+   "stk": "Blue",
+   "id": "DOvSqQZZwpZH6xGx0Knr",
+   "sys": "Oripa 899 ซองเขียว (AG)"
+  },
+  "board1490(ab)s": {
+   "env": "Black",
+   "stk": "White",
+   "id": "OraR1RptqfctpJ5ovDNo",
+   "sys": "Oripa 1,490 ซองดำ (AB) [S]"
+  },
+  "board1500(ac)s": {
+   "env": "Green",
+   "stk": "White",
+   "id": "KO3GTxZwCjbNDYJTcmKi",
+   "sys": "Oripa 1,500 ซองเขียว (AC) [S]"
+  },
+  "board990(aa)s": {
+   "env": "Black",
+   "stk": "White",
+   "id": "2B3MTuuLKJvnZN6ELFv1",
+   "sys": "Board 990.- ซองดำ (AA) [S]"
+  },
+  "board799(aa)": {
+   "env": "Green",
+   "stk": "White",
+   "id": "7m3UA5pJwo1sIqEZ0J99",
+   "sys": "Oripa 799 ซองเขียว (AA)"
+  },
+  "board3199(ed)s": {
+   "env": null,
+   "stk": null,
+   "id": "XHvwCI2IvhBxFbyPThSt",
+   "sys": "Oripa 3,199 ซองดำ ED [S]"
+  },
+  "board1599(ab)s": {
+   "env": "Red",
+   "stk": "Yellow",
+   "id": "zKoXggbhlCozyru9sXfJ",
+   "sys": "Oripa 1,599 ซองแดง (AB) [S]"
+  },
+  "board800(aa)s": {
+   "env": null,
+   "stk": null,
+   "id": "Se2ONkBuQlrXrChuAsV4",
+   "sys": "Board 800 ซองเขียว (AA) [S]"
+  },
+  "board1499(aa)": {
+   "env": null,
+   "stk": null,
+   "id": "MlwjUiMC4XStXYCdV1HX",
+   "sys": "Oripa 1,499 ซองเขียว (AA)(KOL)"
+  },
+  "board5199(ed)s": {
+   "env": null,
+   "stk": null,
+   "id": "XZpyPs4h9Hqpb0iDi6is",
+   "sys": "Board 5199 (ED) [S]"
+  },
+  "board1999(9.9)": {
+   "env": null,
+   "stk": null,
+   "id": "HLQ3e1NLFr6A9jgL453T",
+   "sys": "Oripa 1,999.- ซองแดง (9.9)"
+  },
+  "board999(ae)": {
+   "env": null,
+   "stk": null,
+   "id": "sAYv92UvbvsJyMI83Wtl",
+   "sys": "Oripa 999 ซองดำ (AE)(KOL)"
+  },
+  "board9999(aa)": {
+   "env": null,
+   "stk": null,
+   "id": "BniGF4jebkPEanCfUyEX",
+   "sys": "Oripa 9,999 ซองเขียว (AA)(KOL)"
+  },
+  "board2499(aa)": {
+   "env": null,
+   "stk": null,
+   "id": "ORilH7DZegZY1L8tWYSi",
+   "sys": "Oripa 2,499 ซองแดง (AA)(KOL)"
+  },
+  "board640(aa)s": {
+   "env": null,
+   "stk": null,
+   "id": "wlN1vSK2ElsPCdR0wa40",
+   "sys": "Board 640 ซองดำ (AA) [S]"
+  },
+  "board599(ad)": {
+   "env": null,
+   "stk": null,
+   "id": "qDCWbSb7gfHvrzOFcKlF",
+   "sys": "Oripa 599 ซองดำ (AD)(KOL)"
+  },
+  "board899(af)": {
+   "env": null,
+   "stk": null,
+   "id": "Le8w8AXKtXTThVwEX7hz",
+   "sys": "Oripa 899 ซองดำ  (AF)(KOL)"
+  },
+  "board1599(af)": {
+   "env": null,
+   "stk": null,
+   "id": "O4YcIIlhKUWZeKWRWAQq",
+   "sys": "Oripa 1,599 ซองแดง AF(KOL)"
+  },
+  "board2299(aa)": {
+   "env": null,
+   "stk": null,
+   "id": "B0aTVtXTArzyjEuGsRv0",
+   "sys": "Oripa 2,299 ซองเขียว (AA)(KOL)"
+  },
+  "board900(aa)s": {
+   "env": null,
+   "stk": null,
+   "id": "f2OFqMWMhoACtemL3CHk",
+   "sys": "Board 900 ซองแดง (AA) [S]"
+  },
+  "board900ซองแดง(aa)s": {
+   "env": null,
+   "stk": null,
+   "id": "f2OFqMWMhoACtemL3CHk",
+   "sys": "Board 900 ซองแดง (AA) [S]"
+  },
+  "board1500(aa)s": {
+   "env": null,
+   "stk": null,
+   "id": "me0WOuF5DEG9PHSQ1ekl",
+   "sys": "Board 1,500.- ซองเขียว (AA) [S]"
+  },
+  "board666(aa)s": {
+   "env": null,
+   "stk": null,
+   "id": "S16ZP9tCPdwTuzJoPu8r",
+   "sys": "Board 666.- ซองแดง (AA) [S]"
+  },
+  "board1799(aa)": {
+   "env": null,
+   "stk": null,
+   "id": "EYwyNNSUGVByBTNSFABF",
+   "sys": "Oripa 1,799.- (AA)(KOL)"
+  },
+  "board599(ab)": {
+   "env": null,
+   "stk": null,
+   "id": "FNgOsokQq1F0gWT34zl4",
+   "sys": "Oripa 599.- (AB) (TT)"
+  },
+  "board899(c)": {
+   "env": null,
+   "stk": null,
+   "id": "sYrErqMuasTwaVvFpC9L",
+   "sys": "Oripa 899.- ซองเขียว"
+  }
+ }
+}
